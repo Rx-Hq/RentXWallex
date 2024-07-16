@@ -58,6 +58,7 @@ export const Content = () => {
       setMonthlyRecordInfo(data);
     });
   }, []);
+  console.log(monthlyRecordInfo?.Monthly_Rent_Record);
   return (
     <>
       {!buttonDisable && (
