@@ -89,6 +89,7 @@ export const Payments = () => {
                       <div className="grid grid-cols-2">
                         <div className="flex justify-between items-center pt-6 px-6">
                           <InstallmentCard
+                            installment="First"
                             month={monthName}
                             year={year.toString()}
                             rent={userInfo?.Property_Info[0].rentAmt!}
@@ -98,6 +99,7 @@ export const Payments = () => {
                         </div>
                         <div className="flex justify-between items-center pt-6 px-6">
                           <InstallmentCard
+                            installment="Second"
                             month={monthName}
                             year={year.toString()}
                             rent={userInfo?.Property_Info[0].rentAmt!}

@@ -57,7 +57,6 @@ export const TableWrapper = () => {
             <th>Date</th>
             <th>Rent Amount</th>
             <th>Payment Amount</th>
-            <th>Remaining Amount</th>
             <th>Payment Status</th>
           </tr>
         </thead>
@@ -67,7 +66,6 @@ export const TableWrapper = () => {
               <td>{datas.payemntDate.toString()}</td>
               <td>{datas.rentAmt}</td>
               <td>{datas.paymentAmt}</td>
-              <td>{datas.remainingAmt}</td>
               <td>{datas.status}</td>
             </tr>
           ))}

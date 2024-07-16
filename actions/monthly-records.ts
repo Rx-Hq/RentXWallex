@@ -36,6 +36,7 @@ export const updateMonthlyRecord = async (
   rentPaid: any,
   totalRent: any
 ) => {
+  console.log(month, year, rentPaid);
   const session = await auth();
   const id = session?.user.email!;
   const data = await getNextMonthlyRecord(month, year);
@@ -47,12 +48,17 @@ export const updateMonthlyRecord = async (
     },
     data: {
       Monthly_Rent_Record: {
-        create: {
-          month: month,
-          year: year.toString(),
-          rentPaid: rentPaid.toString(),
-          remainingRent: remainingRent.toString(),
-          totalRent: totalRent,
+        update: {
+          where: {
+            monthIdentifier: {
+              month: month,
+              year: year,
+            },
+          },
+          data: {
+            rentPaid: rentPaid.toString(),
+            remainingRent: remainingRent.toString(),
+          },
         },
       },
     },

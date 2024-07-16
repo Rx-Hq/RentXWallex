@@ -7,6 +7,7 @@ import { monthNames } from "@/data/monthNames";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 type Props = {
+  installment: string;
   month: string;
   year: string;
   rent: string;
@@ -17,7 +18,14 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 
-export const InstallmentCard = ({ month, year, rent, amount, date }: Props) => {
+export const InstallmentCard = ({
+  installment,
+  month,
+  year,
+  rent,
+  amount,
+  date,
+}: Props) => {
   var InstallemtDate = new Date(date);
 
   var InstallemtDateString =
@@ -34,6 +42,8 @@ export const InstallmentCard = ({ month, year, rent, amount, date }: Props) => {
   ) => {
     const stripe = await stripePromise;
     const checkoutSession = await axios.post("/api/checkout-session-payments", {
+      month: month,
+      year: year,
       quantity: 1,
       rentAmt: rentAmt,
       paymentAmt: paymentAmt,
@@ -55,7 +65,7 @@ export const InstallmentCard = ({ month, year, rent, amount, date }: Props) => {
             {/* <span className="text-white">Auto Insurance</span> */}
 
             <p className="text-center text-black text-lg">
-              First Installment on{" "}
+              {installment} Installment on{" "}
               <span className="font-bold">{InstallemtDateString}</span>
             </p>
           </div>

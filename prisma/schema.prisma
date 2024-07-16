@@ -108,11 +108,12 @@ model Monthly_Rent_Record {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   userId        String
   user          User_Info @relation(fields: [userId], references: [id], onDelete: Cascade)
-  month  String
-  year   String
+  month  String 
+  year   String 
   rentPaid      String
   remainingRent String
   totalRent     String
+   @@unique([month, year], name: "monthIdentifier")
 }
 
 model Membership_Info {
