@@ -62,14 +62,16 @@ export const Payments = () => {
     setSecondInsDate(thursdays[3].toString());
   }, []);
   useEffect(() => {
-    if (monthlyRecordInfo?.Monthly_Rent_Record[0].remainingRent == "0") {
-      setSecondInsPaid(true);
-      setFirstInsPaid(true);
-    } else if (
-      monthlyRecordInfo?.Monthly_Rent_Record[0].remainingRent !=
-      monthlyRecordInfo?.Monthly_Rent_Record[0].totalRent
-    ) {
-      setFirstInsPaid(true);
+    if (monthlyRecordInfo?.Monthly_Rent_Record.length == 1) {
+      if (monthlyRecordInfo?.Monthly_Rent_Record[0].remainingRent == "0") {
+        setSecondInsPaid(true);
+        setFirstInsPaid(true);
+      } else if (
+        monthlyRecordInfo?.Monthly_Rent_Record[0].remainingRent !=
+        monthlyRecordInfo?.Monthly_Rent_Record[0].totalRent
+      ) {
+        setFirstInsPaid(true);
+      }
     }
   }, [monthlyRecordInfo]);
 
