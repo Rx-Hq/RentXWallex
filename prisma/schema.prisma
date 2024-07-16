@@ -1,0 +1,210 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Userrole {
+  ADMIN
+  USER
+}
+
+model User {
+  id                    String                 @id @default(auto()) @map("_id") @db.ObjectId
+  name                  String?
+  email                 String?                @unique
+  emailVerified         DateTime?
+  image                 String?
+  password              String?
+  role                  Userrole               @default(USER)
+  accounts              Account[]
+  phone                 String?
+  isTwoFactorEnabled    Boolean                @default(false)
+  twoFactorConfirmation TwoFactorConfirmation?
+}
+
+model Application {
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  name            String?
+  email           String? @unique
+  country         String?
+  street          String?
+  city            String?
+  state           String?
+  zip             String?
+  phonenumber     String?
+  currentEmployer String?
+  jobTitle        String?
+  empStatus       String?
+  monthlyIncome   String?
+  payFreq         String?
+  propAddress     String?
+  rentAmt         String?
+  manageCompany   String?
+  managerName     String?
+  payMethod       String?
+  bankName        String?
+  acctHoldName    String?
+  acctNumber      String?
+  instNumber      String?
+  routNumber      String?
+  hearAbtRx       String?
+}
+
+model User_Info {
+  id                  String                @id @default(auto()) @map("_id") @db.ObjectId
+  name                String?
+  email               String?               @unique
+  country             String?
+  street              String?
+  city                String?
+  state               String?
+  zip                 String?
+  phonenumber         String?
+  currentEmployer     String?
+  jobTitle            String?
+  empStatus           String?
+  monthlyIncome       String?
+  payFreq             String?
+  hearAbtRx           String?
+  isApproved          Boolean
+  Property_Info       Property_Info[]
+  Bank_Info           Bank_Info[]
+  Monthly_Rent_Record Monthly_Rent_Record[]
+  Membership_Info     Membership_Info[]
+  Referals            Referals[]
+  Payment_Info        Payment_Info[]
+}
+
+model Property_Info {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String    @db.ObjectId
+  user          User_Info @relation(fields: [userId], references: [id], onDelete: Cascade)
+  propName      String
+  propAddress   String
+  propType      String
+  propNoOfBeds  String
+  rentAmt       String
+  manageCompany String
+  managerName   String
+  payMethod     String
+}
+
+model Bank_Info {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String
+  user         User_Info @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bankName     String
+  acctHoldName String
+  acctNumber   String
+  instNumber   String
+  routNumber   String
+}
+
+model Monthly_Rent_Record {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String
+  user          User_Info @relation(fields: [userId], references: [id], onDelete: Cascade)
+  month  String
+  year   String
+  rentPaid      String
+  remainingRent String
+  totalRent     String
+}
+
+model Membership_Info {
+  id                   String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId               String
+  user                 User_Info @relation(fields: [userId], references: [id], onDelete: Cascade)
+  membershipType       String
+  membershipAmt        String
+  membershipStatus     String
+  membershipStartDate  DateTime?
+  membershipExpireDate DateTime?
+  membershipDuration   String
+}
+
+model Payment_Info {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String
+  user         User_Info @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rentAmt      String
+  paymentAmt   String
+  payemntDate  DateTime?
+  status       String
+}
+
+model Membership_Plans {
+  id                  String @id @default(auto()) @map("_id") @db.ObjectId
+  membershipType      String
+  membershipAmt       String
+  membershipDuration  String
+  membershipAmenities String
+}
+
+model Referals {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String
+  user         User_Info @relation(fields: [userId], references: [id], onDelete: Cascade)
+  referToEmail String
+  referCode    String
+  referAmt     String
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorConfirmation {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+}
+
+model PasswordResetToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}

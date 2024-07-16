@@ -1,0 +1,8 @@
+Your submission was successful!
+Course: 2609.202450, Distributed App Dev using .NET - ITE-5431-RNA
+Assessment: Screenshot for customer registration in db
+
+Submission date: 6/23/24, 11:04 PM
+Submission size: 370.7 KB
+Submitter: Gaurav Hariyani
+Confirmation number: 1cc63e0198da41e09b849d13a35b799d

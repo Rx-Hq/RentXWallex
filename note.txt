@@ -1,0 +1,6 @@
+form:
+
+add shadcn form(zod) input
+form schema(for validation b+f)
+
+
