@@ -40,6 +40,8 @@ export const updateMonthlyRecord = async (
   const session = await auth();
   const id = session?.user.email!;
   const data = await getNextMonthlyRecord(month, year);
+  const rentPaidAmt =
+    Number(data?.Monthly_Rent_Record[0].rentPaid) + Number(rentPaid);
   const remainingRent =
     Number(data?.Monthly_Rent_Record[0].remainingRent) - Number(rentPaid);
   const result = await db.user_Info.update({
@@ -56,7 +58,7 @@ export const updateMonthlyRecord = async (
             },
           },
           data: {
-            rentPaid: rentPaid.toString(),
+            rentPaid: rentPaidAmt.toString(),
             remainingRent: remainingRent.toString(),
           },
         },

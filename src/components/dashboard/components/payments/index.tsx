@@ -18,6 +18,8 @@ export const Payments = () => {
   const user = session.data?.user.name;
   const [userInfo, setUserInfo] = useState<UserInfoType>();
   const [firstInsDate, setFirstInsDate] = useState("");
+  const [firstInsPaid, setFirstInsPaid] = useState(false);
+  const [SecondInsPaid, setSecondInsPaid] = useState(false);
   const [secondInsDate, setSecondInsDate] = useState("");
   let nextMonth = new Date().getMonth() + 1;
   let monthName = monthNames[nextMonth];
@@ -33,7 +35,6 @@ export const Payments = () => {
       setMonthlyRecordInfo(data);
     });
   }, []);
-  //console.log(userInfo);
 
   useEffect(() => {
     var d = new Date(),
@@ -60,6 +61,17 @@ export const Payments = () => {
     setFirstInsDate(thursdays[1].toString());
     setSecondInsDate(thursdays[3].toString());
   }, []);
+  useEffect(() => {
+    if (monthlyRecordInfo?.Monthly_Rent_Record[0].remainingRent == "0") {
+      setSecondInsPaid(true);
+      setFirstInsPaid(true);
+    } else if (
+      monthlyRecordInfo?.Monthly_Rent_Record[0].remainingRent !=
+      monthlyRecordInfo?.Monthly_Rent_Record[0].totalRent
+    ) {
+      setFirstInsPaid(true);
+    }
+  }, [monthlyRecordInfo]);
 
   return (
     <div className="container">
@@ -87,26 +99,30 @@ export const Payments = () => {
                         </h1>
                       </div>
                       <div className="grid grid-cols-2">
-                        <div className="flex justify-between items-center pt-6 px-6">
-                          <InstallmentCard
-                            installment="First"
-                            month={monthName}
-                            year={year.toString()}
-                            rent={userInfo?.Property_Info[0].rentAmt!}
-                            amount={amount}
-                            date={firstInsDate}
-                          />
-                        </div>
-                        <div className="flex justify-between items-center pt-6 px-6">
-                          <InstallmentCard
-                            installment="Second"
-                            month={monthName}
-                            year={year.toString()}
-                            rent={userInfo?.Property_Info[0].rentAmt!}
-                            amount={amount}
-                            date={secondInsDate}
-                          />
-                        </div>
+                        {!firstInsPaid && (
+                          <div className="flex justify-between items-center pt-6 px-6">
+                            <InstallmentCard
+                              installment="First"
+                              month={monthName}
+                              year={year.toString()}
+                              rent={userInfo?.Property_Info[0].rentAmt!}
+                              amount={amount}
+                              date={firstInsDate}
+                            />
+                          </div>
+                        )}
+                        {!SecondInsPaid && (
+                          <div className="flex justify-between items-center pt-6 px-6">
+                            <InstallmentCard
+                              installment="Second"
+                              month={monthName}
+                              year={year.toString()}
+                              rent={userInfo?.Property_Info[0].rentAmt!}
+                              amount={amount}
+                              date={secondInsDate}
+                            />
+                          </div>
+                        )}
                       </div>
                     </>
                   )}

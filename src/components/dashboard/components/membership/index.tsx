@@ -97,23 +97,23 @@ export const Membership = () => {
             Elite Membership
           </p>
         </a> */}
-        {memInfo?.Membership_Info.length! <= 0 ||
-          (memInfo?.Membership_Info[0]?.membershipExpireDate! < new Date() && (
-            <>
-              <h2 className="mt-6">Select Membership Plan</h2>
-              <div className="grid grid-cols-3 gap-4">
-                {memberships?.map((mem) => (
-                  <MembershipTypeCards
-                    key={mem.id}
-                    id={mem.id}
-                    membershipType={mem.membershipType}
-                    membershipAmt={mem.membershipAmt}
-                    membershipDuration={mem.membershipDuration}
-                    membershipAmenities={mem.membershipAmenities}
-                  />
-                ))}
+        {(memInfo?.Membership_Info.length! <= 0 ||
+          memInfo?.Membership_Info[0]?.membershipExpireDate! < new Date()) && (
+          <>
+            <h2 className="mt-6">Select Membership Plan</h2>
+            <div className="grid grid-cols-3 gap-4">
+              {memberships?.map((mem) => (
+                <MembershipTypeCards
+                  key={mem.id}
+                  id={mem.id}
+                  membershipType={mem.membershipType}
+                  membershipAmt={mem.membershipAmt}
+                  membershipDuration={mem.membershipDuration}
+                  membershipAmenities={mem.membershipAmenities}
+                />
+              ))}
 
-                {/* <a
+              {/* <a
             href="#"
             className="block max-w-sm p-6 m-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
           >
@@ -124,7 +124,7 @@ export const Membership = () => {
               Charge users a one-time payment fee to access the content.
             </p>
           </a> */}
-                {/* <a
+              {/* <a
             href="#"
             className="block max-w-sm p-6 m-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
           >
@@ -147,9 +147,9 @@ export const Membership = () => {
               far, in reverse chronological order.
             </p>
           </a> */}
-              </div>
-            </>
-          ))}
+            </div>
+          </>
+        )}
       </div>
 
       {/* {modal} */}
