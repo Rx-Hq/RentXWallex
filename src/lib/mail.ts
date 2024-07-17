@@ -4,7 +4,7 @@ import sgMail from "@sendgrid/mail";
 const resend = new Resend(process.env.RESEND_API_KEY);
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
-const domain = "http://localhost:3000";
+const domain = "https://rent-x-public.vercel.app/";
 
 export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
   console.log("yes");
@@ -60,10 +60,25 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
 
   await resend.emails.send({
     from: "onboarding@resend.dev",
-    to: email,
+    to: "gauravhariyani12.gh@gmail.com",
     subject: "Reset your password",
     html: `<p>Click <a href="${resetLink}">here</a> to reset password.</p>`,
   });
+
+  if (process.env.SENDGRID_SENDER_EMAIL) {
+    const msg = {
+      to: email,
+      from: process.env.SENDGRID_SENDER_EMAIL,
+      subject: "RentXWallex Password Reset",
+      text: `Reset your password`,
+      html: `<p>Click <a href="${resetLink}">here</a> to reset password.</p>`,
+    };
+    await sgMail.send(msg);
+    return NextResponse.json(
+      { message: "Email sent successfully" },
+      { status: 200 }
+    );
+  }
 };
 
 export const sendVerificationEmail = async (email: string, token: string) => {
@@ -71,8 +86,23 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 
   await resend.emails.send({
     from: "onboarding@resend.dev",
-    to: email,
+    to: "gauravhariyani12.gh@gmail.com",
     subject: "Confirm your email",
     html: `<p>Click <a href="${confirmLink}">here</a> to confirm email.</p>`,
   });
+
+  if (process.env.SENDGRID_SENDER_EMAIL) {
+    const msg = {
+      to: email,
+      from: process.env.SENDGRID_SENDER_EMAIL,
+      subject: "Confirm your email",
+      text: `Confirm your email`,
+      html: `<p>Click <a href="${confirmLink}">here</a> to confirm email.</p>`,
+    };
+    await sgMail.send(msg);
+    return NextResponse.json(
+      { message: "Email sent successfully" },
+      { status: 200 }
+    );
+  }
 };

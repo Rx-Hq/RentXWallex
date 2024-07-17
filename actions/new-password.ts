@@ -6,17 +6,17 @@ import bcrypt from "bcryptjs";
 import { getPasswordResetTokenByToken } from "@/data/password-reset-token";
 import { getUserByEmail } from "@/data/user";
 import { db } from "@/lib/db";
-import { NewPasswordSchema } from "../schemas";
+import { ForgetPasswordSchema } from "../schemas";
 
 export const newPassword = async (
-  values: z.infer<typeof NewPasswordSchema>,
+  values: z.infer<typeof ForgetPasswordSchema>,
   token?: string | null
 ) => {
   if (!token) {
     return { error: "Missing token!" };
   }
 
-  const validatedFields = NewPasswordSchema.safeParse(values);
+  const validatedFields = ForgetPasswordSchema.safeParse(values);
 
   if (!validatedFields.success) {
     return { error: "Invalid fields!" };

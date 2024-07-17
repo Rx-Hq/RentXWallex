@@ -66,18 +66,7 @@ export const RentalHome = () => {
                   2 Adults & Children
                 </p>
               </div>
-              <div className="w-full md:w-1/2 lg:w-1/3 px-2 py-2">
-                <p className="font-bold text-gray-700 dark:text-gray-300">
-                  Pet
-                </p>
-                <p className="text-gray-500 dark:text-gray-400">Yes/No</p>
-              </div>
-              <div className="w-full md:w-1/2 lg:w-1/3 px-2 py-2">
-                <p className="font-bold text-gray-700 dark:text-gray-300">
-                  Vehicle
-                </p>
-                <p className="text-gray-500 dark:text-gray-400">Yes/No</p>
-              </div>
+
               <div className="w-full md:w-1/2 lg:w-1/3 px-2 py-2">
                 <p className="font-bold text-gray-700 dark:text-gray-300">
                   Employment Status
@@ -109,12 +98,12 @@ export const RentalHome = () => {
                   ${propertyInfo?.monthlyIncome}
                 </p>
               </div>
-              <div className="w-full md:w-1/2 lg:w-1/3 px-2 py-2">
+              {/* <div className="w-full md:w-1/2 lg:w-1/3 px-2 py-2">
                 <p className="font-bold text-gray-700 dark:text-gray-300">
                   Household Income
                 </p>
                 <p className="text-gray-500 dark:text-gray-400">—</p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -138,7 +127,7 @@ export const RentalHome = () => {
               </div>
               <div className="text-right">
                 <p className="text-gray-700 dark:text-gray-300 font-medium">
-                  +1 (444) - 455 - 6969
+                  ddd
                 </p>
                 <p className="text-gray-700 dark:text-gray-300">
                   ABCANDXYZ@GMAIL.COM
@@ -163,8 +152,13 @@ export const RentalHome = () => {
                   TYPE
                 </h4>
                 <p className="text-gray-500 dark:text-gray-400">
-                  CONDO OR APARTMENT
+                  {propertyInfo?.Property_Info[0].propType}
                 </p>
+              </div>
+              <div className="mt-4">
+                <h4 className="font-bold text-gray-700 dark:text-gray-300">
+                  NO. OF BEDS : {propertyInfo?.Property_Info[0].propNoOfBeds}
+                </h4>
               </div>
               <div className="mt-4">
                 <h4 className="font-bold text-gray-700 dark:text-gray-300">

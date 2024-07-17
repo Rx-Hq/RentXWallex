@@ -160,20 +160,34 @@ export const NewPasswordSchema = z
       message: "Minimum of 6 characters required",
     }),
   })
-  .superRefine(({ password, repassword }, ctx) => {
+  .superRefine(({ password, repassword, oldpassword }, ctx) => {
     if (repassword !== password) {
       ctx.addIssue({
         code: "custom",
         message: "The passwords did not match",
         path: ["repassword"],
       });
+    } else if (password === oldpassword) {
+      ctx.addIssue({
+        code: "custom",
+        message: "New password can not be same as old password.",
+        path: ["password"],
+      });
     }
   });
+export const ForgetPasswordSchema = z.object({
+  password: z.string().min(6, {
+    message: "Minimum of 6 characters required",
+  }),
+});
 
 export const ResetSchema = z.object({
-  email: z.string().email({
-    message: "Email is required",
-  }),
+  email: z
+    .string()
+    .email({
+      message: "Email is required",
+    })
+    .toLowerCase(),
 });
 
 export const FormDataSchema = z.object({

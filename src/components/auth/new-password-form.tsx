@@ -19,7 +19,7 @@ import { CardWrapper } from "@/components/auth/card-wrapper";
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { NewPasswordSchema } from "../../../schemas";
+import { ForgetPasswordSchema } from "../../../schemas";
 import { newPassword } from "../../../actions/new-password";
 
 export const NewPasswordForm = () => {
@@ -30,14 +30,14 @@ export const NewPasswordForm = () => {
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<z.infer<typeof NewPasswordSchema>>({
-    resolver: zodResolver(NewPasswordSchema),
+  const form = useForm<z.infer<typeof ForgetPasswordSchema>>({
+    resolver: zodResolver(ForgetPasswordSchema),
     defaultValues: {
       password: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
+  const onSubmit = (values: z.infer<typeof ForgetPasswordSchema>) => {
     setError("");
     setSuccess("");
 

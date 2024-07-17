@@ -18,6 +18,7 @@ export const insertMonthlyRecord = async (
     data: {
       Monthly_Rent_Record: {
         create: {
+          email: id,
           month: month,
           year: year.toString(),
           rentPaid: rentPaid.toString(),
@@ -53,6 +54,7 @@ export const updateMonthlyRecord = async (
         update: {
           where: {
             monthIdentifier: {
+              email: id,
               month: month,
               year: year,
             },
@@ -78,6 +80,7 @@ export const getNextMonthlyRecord = async (month: any, year: any) => {
     include: {
       Monthly_Rent_Record: {
         where: {
+          email: id,
           month: month,
           year: year.toString(),
         },

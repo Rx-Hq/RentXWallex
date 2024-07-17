@@ -71,6 +71,8 @@ export type PropertyInfoType = {
       id: string;
       propName: string;
       propAddress: string;
+      propType: string;
+      propNoOfBeds: string;
       rentAmt: string;
       manageCompany: string;
       managerName: string;
