@@ -20,7 +20,7 @@ export const CardAgents = ({ custom }: Props) => {
   }, []);
   console.log(memInfo?.Membership_Info);
   return (
-    <Card className="block  p-2 bg-gradient-to-r from-green-500 to-lime-300 border border-gray-200 rounded-lg shadow dark:border-gray-700 dark:hover:bg-gray-700">
+    <Card className="block  p-2 bg-gradient-to-r from-green-500 to-lime-300 border border-gray-200 rounded-lg shadow-xl dark:border-gray-700 dark:hover:bg-gray-700">
       <CardBody className=" gap-3">
         <a onClick={custom} href="#">
           <div className="flex items-center">

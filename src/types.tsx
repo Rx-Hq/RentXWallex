@@ -90,6 +90,7 @@ export type PropertyInfoType = {
   currentEmployer: string;
   payFreq: String;
   monthlyIncome: string;
+  empStatus: String;
 };
 export type MonthlyRecordInfoType = {
   Monthly_Rent_Record: [

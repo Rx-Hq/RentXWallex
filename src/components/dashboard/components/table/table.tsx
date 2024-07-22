@@ -65,7 +65,9 @@ export const TableWrapper = () => {
         <tbody>
           {data?.Payment_Info.length! <= 0 && (
             <>
-              <tr className="text-center">No Records</tr>
+              <tr className="text-center">
+                <td>No Records</td>
+              </tr>
             </>
           )}
           {data?.Payment_Info.map((datas) => (

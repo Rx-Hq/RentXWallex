@@ -79,7 +79,10 @@ export const QuestionCard = ({ rent }: Props) => {
         >
           <div className="relative p-4 w-full  max-w-xl max-h-full">
             <div className="relative bg-white rounded-lg shadow  dark:bg-gray-700">
-              <CardHeader> Do you want to continue? </CardHeader>
+              <CardHeader className="bg-gray-900 text-white rounded-lg">
+                {" "}
+                Do you want to continue?{" "}
+              </CardHeader>
               <CardBody className="py-5">
                 <div className="">
                   <div className=" mb-5">

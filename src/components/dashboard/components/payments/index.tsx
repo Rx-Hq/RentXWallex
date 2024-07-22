@@ -81,7 +81,7 @@ export const Payments = () => {
         <h2 className="text-3xl font-semibold text-gray-900 dark:text-gray-300 mt-6">
           Payments
         </h2>
-        <div className="max-w-[95rem] mx-auto w-full bg-gray-100 dark:bg-gray-800 rounded-lg">
+        <div className="max-w-[95rem] mx-auto w-full shadow-xl bg-green-100 dark:bg-gray-800 rounded-lg">
           <div className="container mx-auto ">
             <Card>
               <CardBody>
