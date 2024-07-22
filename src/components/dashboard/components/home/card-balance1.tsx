@@ -20,7 +20,7 @@ export const CardBalance1 = ({ rent }: Props) => {
         <div className="flex gap-2.5">
           <div className="flex flex-col">
             {/* <span className="text-white">Auto Insurance</span> */}
-            <span className="text-black text-xs">Total Invoices</span>
+            <span className="text-black text-sm">Total Borrowings</span>
           </div>
         </div>
         <div className="flex gap-2.5 py-2 items-center">

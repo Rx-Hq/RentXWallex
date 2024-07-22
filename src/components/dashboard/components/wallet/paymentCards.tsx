@@ -14,7 +14,7 @@ export const PaymentCards = ({ custom }: Props) => {
   const session = useSession();
   const userEmail = session?.data?.user.email!;
   useEffect(() => {
-    getMembership(userEmail).then((data: any) => {
+    getMembership().then((data: any) => {
       setMemInfo(data);
     });
   }, []);

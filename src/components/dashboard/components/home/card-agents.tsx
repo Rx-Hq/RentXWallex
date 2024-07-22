@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { getMembership } from "../../../../../actions/membership";
 import { MembershipInfoType, MembershipsType } from "@/types";
+import { monthNames } from "@/data/monthNames";
 
 type Props = {
   custom: () => void;
@@ -11,9 +12,9 @@ type Props = {
 export const CardAgents = ({ custom }: Props) => {
   const [memInfo, setMemInfo] = useState<MembershipInfoType>();
   const session = useSession();
-  const userEmail = session?.data?.user.email!;
+
   useEffect(() => {
-    getMembership(userEmail).then((data: any) => {
+    getMembership().then((data: any) => {
       setMemInfo(data);
     });
   }, []);
@@ -23,30 +24,48 @@ export const CardAgents = ({ custom }: Props) => {
       <CardBody className=" gap-3">
         <a onClick={custom} href="#">
           <div className="flex items-center">
-            <Avatar
-              className="h-16 w-16"
-              isBordered
-              src={session.data?.user.image!}
-              alt={session.data?.user.name!}
+            <img
+              className="h-16 w-16  rounded-full mr-4"
+              alt={
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+              }
+              src={
+                session.data?.user.image!
+                  ? session.data?.user.image!
+                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+              }
             />
             <h5 className="m-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {memInfo?.name}
             </h5>
           </div>
 
-          <h5 className="mt-5 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+          <h5 className="mt-5 text-lg font-bold  text-gray-900 dark:text-gray-400">
+            {memInfo?.Membership_Info.length! <= 0 ||
+            memInfo?.Membership_Info[0].membershipExpireDate! < new Date()
+              ? ""
+              : memInfo?.Membership_Info[0].membershipType}{" "}
+          </h5>
+          <h5 className="font-bold tracking-tight text-gray-900 dark:text-white">
             Status:{" "}
             {memInfo?.Membership_Info.length! <= 0 ||
             memInfo?.Membership_Info[0].membershipExpireDate! < new Date()
               ? "Not a member."
               : "Active"}
           </h5>
-          <p className="font-bold text-gray-700 dark:text-gray-400">
+          <h5 className="font-bold tracking-tight text-gray-900 dark:text-white">
+            Expires on{" "}
             {memInfo?.Membership_Info.length! <= 0 ||
             memInfo?.Membership_Info[0].membershipExpireDate! < new Date()
               ? ""
-              : memInfo?.Membership_Info[0].membershipType}{" "}
-          </p>
+              : monthNames[
+                  memInfo?.Membership_Info[0].membershipExpireDate.getMonth()!
+                ] +
+                " " +
+                memInfo?.Membership_Info[0].membershipExpireDate.getDate() +
+                " " +
+                memInfo?.Membership_Info[0].membershipExpireDate.getFullYear()}{" "}
+          </h5>
         </a>
       </CardBody>
     </Card>

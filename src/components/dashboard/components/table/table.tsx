@@ -14,6 +14,7 @@ import { RenderCell } from "./render-cell";
 import { PaymentInfoType } from "@/types";
 import { PaymentInfo } from "../../../../../actions/payment";
 import clsx from "clsx";
+import { monthNames } from "@/data/monthNames";
 
 export const TableWrapper = () => {
   const [data, setData] = useState<PaymentInfoType>();
@@ -62,11 +63,22 @@ export const TableWrapper = () => {
           </tr>
         </thead>
         <tbody>
+          {data?.Payment_Info.length! <= 0 && (
+            <>
+              <tr className="text-center">No Records</tr>
+            </>
+          )}
           {data?.Payment_Info.map((datas) => (
             <tr className="bg-lime-50 mb-4" key={datas.id}>
-              <td className="py-2 px-4">{datas.payemntDate.toString()}</td>
-              <td className="py-2 px-4">{datas.rentAmt}</td>
-              <td className="py-2 px-4">{datas.paymentAmt}</td>
+              <td className="py-2 px-4">
+                {datas.payemntDate.getDate() +
+                  "-" +
+                  monthNames[datas.payemntDate.getMonth()] +
+                  "-" +
+                  datas.payemntDate.getFullYear()}{" "}
+              </td>
+              <td className="py-2 px-4">${datas.rentAmt}</td>
+              <td className="py-2 px-4">${datas.paymentAmt}</td>
               <td
                 className={clsx({
                   "py-2 px-4 text-red-700": datas.status == "processing",

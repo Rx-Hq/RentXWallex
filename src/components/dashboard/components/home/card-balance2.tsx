@@ -18,8 +18,8 @@ export const CardBalance2 = ({ rent }: Props) => {
         <div className="flex gap-2.5">
           <div className="flex flex-col">
             {/* <span className="text-default-900">Health Insurance</span> */}
-            <span className="text-default-900 text-xs">
-              Total payment Recieved
+            <span className="text-default-900 text-sm">
+              Total payment Completed
             </span>
           </div>
         </div>

@@ -11,6 +11,7 @@ import { FormError } from "@/components/form-error";
 import { application } from "../../../../../actions/Application";
 import { userInfo } from "../../../../../actions/userInfo";
 import { useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 type Inputs = z.infer<typeof FormDataSchema>;
 export default function Form() {
   const [previousStep, setPreviousStep] = useState(0);
@@ -689,11 +690,12 @@ export default function Form() {
                 >
                   Current Monthly Rent Amount
                 </label>
-                <div className="mt-2">
+                <div className="flex mt-2">
                   <input
                     id="rentAmt"
                     type="number"
                     {...register("rentAmt")}
+                    placeholder="$"
                     autoComplete="rentAmt"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"
                     onChange={handleMembershipPlans}
@@ -1009,21 +1011,25 @@ export default function Form() {
                 <div className="sm:col-span-4 text-xl font-semibold leading-7 text-gray-900 dark:text-white">
                   <p>Membership Selection</p>
                 </div>
+
                 <div className="sm:col-span-4 ">
-                  <div className="flex flex-col" hidden={rentAmt > 1500}>
-                    <div className="mb-2">
-                      <label>
-                        <input
-                          className="me-1"
-                          name="membership"
-                          type="radio"
-                          value="platinum"
-                          checked={selectedOption === "platinum"} // Set checked attribute based on the selected option
-                          onChange={handleOptionChange}
-                        />
-                        Platinum Membership ( $25/month, billed annually )
-                      </label>
-                    </div>
+                  <div className="flex flex-col">
+                    {rentAmt < 1500 && (
+                      <div className="mb-2">
+                        <label>
+                          <input
+                            className="me-1"
+                            name="membership"
+                            type="radio"
+                            value="platinum"
+                            checked={selectedOption === "platinum"} // Set checked attribute based on the selected option
+                            onChange={handleOptionChange}
+                          />
+                          Platinum Membership ( $25/month, billed annually )
+                        </label>
+                      </div>
+                    )}
+
                     <div>
                       <label>
                         <input

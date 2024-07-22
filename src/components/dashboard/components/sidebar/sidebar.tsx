@@ -21,12 +21,13 @@ import { ChangeLogIcon } from "../icons/sidebar/changelog-icon";
 import { redirect, usePathname } from "next/navigation";
 import { applicationCheck } from "../../../../../actions/Application";
 import { useRouter } from "next/navigation";
+import { getMembership } from "../../../../../actions/membership";
 
 export const SidebarWrapper = () => {
   const pathname = usePathname();
   const { collapsed, setCollapsed } = useSidebarContext();
   const [buttonDisable, setButtonDisable] = useState(true);
-
+  const [isMember, setIsMember] = useState(false);
   useEffect(() => {
     applicationCheck().then((data: any) => {
       console.log(data);
@@ -37,6 +38,13 @@ export const SidebarWrapper = () => {
           setButtonDisable(true);
         } else {
           setButtonDisable(false);
+        }
+      }
+    });
+    getMembership().then((data) => {
+      if (data?.Membership_Info.length! > 0) {
+        if (data?.Membership_Info[0].membershipExpireDate! > new Date()) {
+          setIsMember(true);
         }
       }
     });
@@ -77,12 +85,23 @@ export const SidebarWrapper = () => {
                     icon={<PaymentsIcon />}
                     href={"/membership"}
                   />
-                  <SidebarItem
-                    isActive={pathname === "/payments"}
-                    title="Payment"
-                    icon={<PaymentsIcon />}
-                    href={"/payments"}
-                  />
+                  {isMember && (
+                    <>
+                      <SidebarItem
+                        isActive={pathname === "/payments"}
+                        title="Payment"
+                        icon={<PaymentsIcon />}
+                        href={"/payments"}
+                      />
+                      <SidebarItem
+                        isActive={pathname === "/transactions"}
+                        title="Transactions"
+                        icon={<PaymentsIcon />}
+                        href={"/transactions"}
+                      />
+                    </>
+                  )}
+
                   {/* <SidebarItem
                     isActive={pathname === "/application"}
                     title="My Application"

@@ -6,7 +6,7 @@ export const getMembershipTypes = async () => {
   return result;
 };
 
-export const getMembership = async (email: string) => {
+export const getMembership = async () => {
   const session = await auth();
   const result = await db.user_Info.findUnique({
     where: {

@@ -67,14 +67,9 @@ export const MembershipTypeCards = ({
         {membershipType}
       </h5>
       <p className="font-normal text-gray-700 dark:text-gray-400">
-        ${membershipAmt}
+        Price: ${membershipAmt} annually
       </p>
-      <p className="font-normal text-gray-700 dark:text-gray-400">
-        {membershipDuration}
-      </p>
-      <p className="font-normal text-gray-700 dark:text-gray-400">
-        {membershipAmenities}
-      </p>
+
       <button
         onClick={() =>
           handleStripeInitiation(

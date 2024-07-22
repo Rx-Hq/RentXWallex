@@ -25,8 +25,14 @@ export const UserDropdown = () => {
           <div className="relative grid select-none items-center whitespace-nowrap rounded-full text-xs font-bold uppercase">
             <div className="absolute top-2/4 left-1.5 h-5 w-5 -translate-y-2/4">
               <img
-                alt={session.data?.user.name!}
-                src={session.data?.user.image!}
+                alt={
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+                }
+                src={
+                  session.data?.user.image!
+                    ? session.data?.user.image!
+                    : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+                }
                 className="relative inline-block h-full w-full -translate-x-0.5 !rounded-full  object-cover object-center"
               />
             </div>

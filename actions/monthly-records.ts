@@ -106,6 +106,23 @@ export const getTotalInvoices = async () => {
   });
   return totalRent;
 };
+export const getBalanceRemaining = async () => {
+  const session = await auth();
+  const id = session?.user.email!;
+  const result = await db.user_Info.findUnique({
+    where: {
+      email: id,
+    },
+    include: {
+      Monthly_Rent_Record: true,
+    },
+  });
+  var balanceRemaining = 0;
+  result?.Monthly_Rent_Record.forEach((element) => {
+    balanceRemaining += Number(element.remainingRent);
+  });
+  return balanceRemaining;
+};
 export const getTotalPayments = async () => {
   const session = await auth();
   const id = session?.user.email!;

@@ -1,0 +1,22 @@
+# Environment variables declared in this file are automatically made available to Prisma.
+# See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
+
+# Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
+# See the documentation for all the connection string options: https://pris.ly/d/connection-strings
+
+DATABASE_URL="mongodb+srv://gauravhariyani12gh:left4deaD4%40@cluster0.kneq6lk.mongodb.net/projectrx?retryWrites=true&w=majority&appName=Cluster0"
+# DATABASE_URL="mongodb+srv://rahul:rahul@cluster0.urnp0r8.mongodb.net/"
+
+AUTH_SECRET="secret"
+Facebook_CLIENT_ID=415237120916027
+Facebook_CLIENT_SECRET=2ebfdf9bb4dd6cc5eb37fb90e0d37449
+
+GOOGLE_CLIENT_ID=80054760495-h259kb26ncl8hpk2jeofitk8lapdrgjc.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+RESEND_API_KEY=re_JGR6nQJG_6s8nb6ATpi1H3KVhspnnfB2f
+
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY='pk_test_51PXynzRuVIJTUo4mKkDVWGoxU2A0tHxR7rItIldbJcatb5E4BrW0Ivkeae56DrE7BS56U8RPDtNgqBCleINaGXJL00n1xDpKbl'
+STRIPE_SECRET_KEY='sk_test_51PXynzRuVIJTUo4mO6XNPaqK9w2UZyTrMjJUvnl51wDd7GwSTQnOjQ7rmxHYnvGEzgDPUQGmAEJzy1cET6cMmqSZ00Y7jjFNJu'
+
+SENDGRID_API_KEY='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'
+SENDGRID_SENDER_EMAIL='rahul1353rkj@gmail.com'

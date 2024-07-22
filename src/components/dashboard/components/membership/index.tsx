@@ -1,5 +1,5 @@
 "use client";
-import { Button, Input } from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 // import { payment } from '../../../../../actions/payment';
@@ -29,9 +29,11 @@ import {
   getMembershipTypes,
 } from "../../../../../actions/membership";
 
-import { MembershipInfoType, MembershipsType } from "@/types";
+import { MembershipInfoType, MembershipsType, PropertyInfoType } from "@/types";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import { landlordInfo } from "../../../../../actions/landlord";
 
 export const Membership = () => {
   const [modal, setModal] = useState(true);
@@ -46,20 +48,14 @@ export const Membership = () => {
     paymentCycle: "Monthly",
   };
   const payment = { card: "**** **** **** 3889", date: "2023-06-01" };
-  const plans = [
-    { id: 1, name: "Basic", price: 10 },
-    { id: 2, name: "Standard", price: 20 },
-    { id: 3, name: "Premium", price: 30 },
-  ];
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
   const [memInfo, setMemInfo] = useState<MembershipInfoType>();
-  const session = useSession();
-  const userEmail = session?.data?.user.email!;
+  const [propertyInfo, setPropertyInfo] = useState<PropertyInfoType>();
   useEffect(() => {
-    getMembership(userEmail).then((data: any) => {
+    getMembership().then((data: any) => {
       setMemInfo(data);
     });
   }, []);
@@ -67,6 +63,9 @@ export const Membership = () => {
   useEffect(() => {
     getMembershipTypes().then((data: any) => {
       setMemberships(data);
+    });
+    landlordInfo().then((data: any) => {
+      setPropertyInfo(data);
     });
   }, []);
 
@@ -77,12 +76,13 @@ export const Membership = () => {
   return (
     <>
       <div className="container">
-        <h2 className="text-3xl font-semibold text-gray-900 my-8 dark:text-gray-300">
-          Membership
-        </h2>
+        <div className="my-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
+          <h2 className="text-3xl font-semibold text-gray-900 dark:text-gray-300 mt-6">
+            Membership
+          </h2>
 
-        <CardAgents custom={toggleModal} />
-        {/* <a
+          <CardAgents custom={toggleModal} />
+          {/* <a
           href="#"
           onClick={toggleModal}
           className="block max-w-sm p-6 m-6 bg-gradient-to-r from-green-500 to-lime-300 border border-gray-200 rounded-lg shadow dark:border-gray-700 dark:hover:bg-gray-700"
@@ -97,23 +97,39 @@ export const Membership = () => {
             Elite Membership
           </p>
         </a> */}
-        {(memInfo?.Membership_Info.length! <= 0 ||
-          memInfo?.Membership_Info[0]?.membershipExpireDate! < new Date()) && (
-          <>
-            <h2 className="mt-6">Select Membership Plan</h2>
-            <div className="grid grid-cols-3 gap-4">
-              {memberships?.map((mem) => (
-                <MembershipTypeCards
-                  key={mem.id}
-                  id={mem.id}
-                  membershipType={mem.membershipType}
-                  membershipAmt={mem.membershipAmt}
-                  membershipDuration={mem.membershipDuration}
-                  membershipAmenities={mem.membershipAmenities}
-                />
-              ))}
+          {(memInfo?.Membership_Info.length! <= 0 ||
+            memInfo?.Membership_Info[0]?.membershipExpireDate! <
+              new Date()) && (
+            <>
+              <h2 className="mt-6">Select Membership Plan</h2>
+              <div className="grid grid-cols-3 gap-4">
+                {memberships?.map((mem) => (
+                  <>
+                    {Number(propertyInfo?.Property_Info[0].rentAmt!) > 1500 ? (
+                      mem.membershipType == "Gold Membership" && (
+                        <MembershipTypeCards
+                          key={mem.id}
+                          id={mem.id}
+                          membershipType={mem.membershipType}
+                          membershipAmt={mem.membershipAmt}
+                          membershipDuration={mem.membershipDuration}
+                          membershipAmenities={mem.membershipAmenities}
+                        />
+                      )
+                    ) : (
+                      <MembershipTypeCards
+                        key={mem.id}
+                        id={mem.id}
+                        membershipType={mem.membershipType}
+                        membershipAmt={mem.membershipAmt}
+                        membershipDuration={mem.membershipDuration}
+                        membershipAmenities={mem.membershipAmenities}
+                      />
+                    )}
+                  </>
+                ))}
 
-              {/* <a
+                {/* <a
             href="#"
             className="block max-w-sm p-6 m-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
           >
@@ -124,7 +140,7 @@ export const Membership = () => {
               Charge users a one-time payment fee to access the content.
             </p>
           </a> */}
-              {/* <a
+                {/* <a
             href="#"
             className="block max-w-sm p-6 m-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
           >
@@ -147,9 +163,10 @@ export const Membership = () => {
               far, in reverse chronological order.
             </p>
           </a> */}
-            </div>
-          </>
-        )}
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
       {/* {modal} */}
@@ -268,13 +285,9 @@ export const Membership = () => {
                 </div>
               </div>
               <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button
-                  onClick={toggleModal}
-                  type="button"
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
+                <Button variant="default" onClick={toggleModal} type="button">
                   Close
-                </button>
+                </Button>
               </div>
             </div>
           </div>

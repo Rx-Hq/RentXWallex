@@ -76,7 +76,10 @@ export type PropertyInfoType = {
       rentAmt: string;
       manageCompany: string;
       managerName: string;
+      propManagerEmail: string;
+      propManagerPhone: string;
       payMethod: string;
+
       userId: string;
     }
   ];
@@ -85,6 +88,7 @@ export type PropertyInfoType = {
   jobTitle: string;
   email: string;
   currentEmployer: string;
+  payFreq: String;
   monthlyIncome: string;
 };
 export type MonthlyRecordInfoType = {
