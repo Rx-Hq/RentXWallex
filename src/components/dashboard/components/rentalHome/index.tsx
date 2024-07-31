@@ -38,7 +38,7 @@ export const RentalHome = () => {
                 My Account
               </h1>
             </div>
-            <div className="flex justify-between items-center border-b pb-4 dark:border-gray-600 px-8">
+            <div className="flex justify-between items-center border-green-400 border-b pb-4 dark:border-gray-600 px-8">
               <div className="flex items-center">
                 <img
                   className="w-16 h-16 rounded-full mr-4"

@@ -48,6 +48,7 @@ export const Content = () => {
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+
   let monthIndex = new Date().getMonth() + 1;
   let monthName = monthNames[monthIndex];
   let year = new Date().getFullYear();
@@ -117,6 +118,8 @@ export const Content = () => {
               </div>
             </div>
           </div>
+          <h3 className="text-xl font-semibold p-5">Recent Rent Payments</h3>
+          <TableWrapper />
         </div>
       )}
     </>

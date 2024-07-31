@@ -106,7 +106,8 @@ export const Membership = () => {
                 {memberships?.map((mem) => (
                   <>
                     {Number(propertyInfo?.Property_Info[0].rentAmt!) > 1500 ? (
-                      mem.membershipType == "Gold Membership" && (
+                      (mem.membershipType == "Gold Membership" ||
+                        mem.membershipType == "Gold Membership (Yearly)") && (
                         <MembershipTypeCards
                           key={mem.id}
                           id={mem.id}
@@ -213,7 +214,7 @@ export const Membership = () => {
                     {/* User Info */}
                     <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
                       <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                        User Info
+                        Profile
                       </h2>
                       <p className="text-gray-700 dark:text-gray-300">
                         Name: {memInfo?.name}
@@ -247,9 +248,9 @@ export const Membership = () => {
                     </div>
 
                     {/* Payment Info */}
-                    <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+                    {/* <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
                       <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                        Payment Info
+                        Payments
                       </h2>
                       <p className="text-gray-700 dark:text-gray-300">
                         Last Payment Card: {payment.card}
@@ -257,7 +258,7 @@ export const Membership = () => {
                       <p className="text-gray-700 dark:text-gray-300">
                         Last Payment Date: {payment.date}
                       </p>
-                    </div>
+                    </div> */}
 
                     {/* Plan Upgrade */}
                     {/* <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">

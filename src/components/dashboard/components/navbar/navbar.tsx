@@ -23,21 +23,21 @@ interface Props {
 export const NavbarWrapper = ({ children }: Props) => {
   const session = useSession();
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [buttonDisable, setButtonDisable] = useState(false);
+  const [buttonShow, setButtonShow] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     applicationCheck().then((data: any) => {
       console.log(data);
       if (data === null) {
         setIsModalOpen(true);
-        setButtonDisable(true);
+        setButtonShow(true);
       } else {
         if (data.isApproved === false) {
           setIsModalOpen(true);
-          setButtonDisable(true);
+          setButtonShow(true);
         } else {
           setIsModalOpen(false);
-          setButtonDisable(false);
+          setButtonShow(false);
         }
       }
       setLoading(false);
@@ -86,14 +86,19 @@ export const NavbarWrapper = ({ children }: Props) => {
             className="w-fit data-[justify=end]:flex-grow-0"
           >
             <div className="flex items-center gap-2 max-md:hidden"></div>
-            <button
-              data-tooltip-id="my-tooltip"
-              data-tooltip-content="Application form"
-              onClick={handleModal}
-            >
-              <ApplicationIcon />
-            </button>
-            <Tooltip id="my-tooltip" />
+            {buttonShow && (
+              <>
+                <button
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content="Application form"
+                  onClick={handleModal}
+                >
+                  <ApplicationIcon />
+                </button>
+                <Tooltip id="my-tooltip" />
+              </>
+            )}
+
             {/* <NotificationsDropdown /> */}
 
             <div className="max-md:hidden"></div>

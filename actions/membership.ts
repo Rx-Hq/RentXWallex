@@ -38,7 +38,15 @@ export const insertMembershipdetails = async (
   const session = await auth();
   const id = session?.user.email!;
   const ends = new Date();
-  ends.setFullYear(ends.getFullYear() + 1);
+  console.log(membershipDuration);
+  if (Number(membershipDuration) == 1) {
+    console.log("one");
+    ends.setMonth(ends.getMonth() + Number(membershipDuration));
+  } else if (Number(membershipDuration) == 12) {
+    console.log("year");
+    ends.setFullYear(ends.getFullYear() + 1);
+  }
+
   const finalEnds = ends.toISOString();
   console.log(id);
   console.log(start);

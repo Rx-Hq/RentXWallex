@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
     }
     const params: Stripe.Checkout.SessionCreateParams = {
       payment_method_types: ["card"],
+      customer_email: session.user.email!,
       line_items: [
         {
           price_data: {

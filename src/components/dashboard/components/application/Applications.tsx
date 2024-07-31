@@ -12,12 +12,14 @@ import { application } from "../../../../../actions/Application";
 import { userInfo } from "../../../../../actions/userInfo";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { canadaStateNames, usaStateNames } from "@/data/monthNames";
 type Inputs = z.infer<typeof FormDataSchema>;
 export default function Form() {
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(5);
   const [selectedImage, setSelectedImage] = useState("");
   const [incomeType, setIncomeType] = useState("Weekly");
+  const [selectedCountry, setSelectedCountry] = useState("Canada");
   const [rentAmt, setRentAmt] = useState(0);
   const [selectedFile, setSelectedFile] = useState<File>();
   const [uploading, setUploading] = useState(false);
@@ -130,6 +132,9 @@ export default function Form() {
     const type = event.target.value;
     setIncomeType(type);
     console.log(event.target.value);
+  };
+  const handleSelectedCountry = (event: any) => {
+    setSelectedCountry(event.target.value);
   };
 
   const handleMembershipPlans = (event: any) => {
@@ -358,25 +363,24 @@ export default function Form() {
                     autoComplete="address-level1"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
-                    <option value="Alberta">Alberta</option>
-                    <option value="British Columbia">British Columbia</option>
-                    <option value="Manitoba">Manitoba</option>
-                    <option value="New Brunswick">New Brunswick</option>
-                    <option value="Newfoundland and Labrador">
-                      Newfoundland and Labrador
-                    </option>
-                    <option value="Northwest Territories">
-                      Northwest Territories
-                    </option>
-                    <option value="Nova Scotia">Nova Scotia</option>
-                    <option value="Nunavut">Nunavut</option>
-                    <option value="Ontario">Ontario</option>
-                    <option value="Prince Edward Island">
-                      Prince Edward Island
-                    </option>
-                    <option value="Quebec">Quebec</option>
-                    <option value="Saskatchewan">Saskatchewan</option>
-                    <option value="Yukon">Yukon</option>
+                    {selectedCountry == "Canada" && (
+                      <>
+                        {canadaStateNames.map((name, key) => (
+                          <option key={key} value={name}>
+                            {name}
+                          </option>
+                        ))}
+                      </>
+                    )}
+                    {selectedCountry == "United States" && (
+                      <>
+                        {usaStateNames.map((name, key) => (
+                          <option key={key} value={name}>
+                            {name}
+                          </option>
+                        ))}
+                      </>
+                    )}
                   </select>
 
                   {errors.state?.message && (
@@ -422,11 +426,11 @@ export default function Form() {
                     id="country"
                     {...register("country")}
                     autoComplete="country-name"
+                    onChange={handleSelectedCountry}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
                     <option value="Canada">Canada</option>
-                    <option value="Unitedstate">United States</option>
-                    <option value="mexico">Mexico</option>
+                    <option value="United States">United States</option>
                   </select>
                   {errors.country?.message && (
                     <p className="mt-2 text-sm text-red-400">

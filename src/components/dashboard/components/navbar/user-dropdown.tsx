@@ -15,6 +15,8 @@ import Link from "next/link";
 
 export const UserDropdown = () => {
   const session = useSession();
+  const OAuth = session.data?.user.isOAuth;
+  console.log(session);
   const handleSignout = () => {
     SignOut();
   };

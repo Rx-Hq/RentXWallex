@@ -3,11 +3,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { SessionProvider, useSession } from "next-auth/react";
-import { PrismaClient } from "@prisma/client";
-import { db } from "@/lib/db";
+
 import { SavePaymentInfo } from "../../../../../actions/payment";
 import { insertMembershipdetails } from "../../../../../actions/membership";
 import { updateMonthlyRecord } from "../../../../../actions/monthly-records";
+import { CardHeader, CardBody, Card } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
 type SessionData = {
   id: string;
   amount: number;
@@ -110,53 +111,99 @@ const Success = () => {
   // };
 
   return (
-    <div className="w-full max-w-4xl mx-auto py-12 md:py-16 lg:py-20 min-h-[84vh]">
-      <h1 className="text-3xl font-bold tracking-tight">Payment Successful</h1>
-      <p className="text-gray-500 dark:text-gray-400">
-        Thank you for your purchase. Your payment was successful!
-      </p>
-      <div className="mt-8">
-        <h2 className="text-xl font-bold">Order Summary</h2>
-        <div className="mt-4">
-          {sessionData && (
-            <>
-              {sessionData && (
-                <>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    Payment ID: {sessionData.id}
+    <>
+      <Card className=" bg-green-100 rounded-xl shadow-md px-3 w-full">
+        <div
+          id="default-modal"
+          className="fixed left-0 top-0 w-full h-full bg-black bg-opacity-30 z-50 overflow-auto backdrop-blur flex justify-center items-center"
+        >
+          <div className="relative p-4 w-full  max-w-xl max-h-full">
+            <div className="relative bg-white rounded-lg shadow  dark:bg-gray-700">
+              <CardHeader className="bg-gray-900 text-white rounded-lg">
+                {" "}
+                Payment Successful
+              </CardHeader>
+              <CardBody className="py-5">
+                <div className="mt-8">
+                  <p className="text-gray-700 dark:text-gray-400">
+                    Thank you for your purchase. Your payment was successful!
                   </p>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    Amount: {sessionData.amount_total / 100}{" "}
-                    {sessionData.currency.toUpperCase()}
-                  </p>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    Payment Status: {sessionData.payment_status}
-                  </p>
-                </>
-              )}
-              {/* <p className="text-gray-500 dark:text-gray-400 mt-12">
-                You will receive the Payment Confirmation Email shortly on{" "}
-                <strong>{sessionData.customer_email}</strong>.
-              </p> */}
-              {/* <p>{session.data?.user.email}</p> */}
-            </>
-          )}
+                  <h2 className="text-xl font-bold mt-4">Payment Summary</h2>
+                  <div className="my-4">
+                    {sessionData && (
+                      <>
+                        {sessionData && (
+                          <>
+                            <p className="text-gray-700 dark:text-gray-400 break-all">
+                              <span className="font-bold">Payment ID:</span>{" "}
+                              {sessionData.id}
+                            </p>
+                            <p className="text-gray-700 dark:text-gray-400">
+                              <span className="font-bold">Amount: </span>{" "}
+                              {sessionData.amount_total / 100}{" "}
+                              {sessionData.currency.toUpperCase()}
+                            </p>
+                            <p className="text-gray-700 dark:text-gray-400">
+                              <span className="font-bold">
+                                Payment Status:{" "}
+                              </span>{" "}
+                              {sessionData.payment_status}
+                            </p>
+                          </>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+                <Button
+                  variant={"default"}
+                  onClick={() => router.push("/home")}
+                >
+                  OK
+                </Button>
+              </CardBody>
+            </div>
+          </div>
         </div>
-      </div>
-      <button
-        className="w-44 px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md"
-        onClick={() => router.push("/home")}
-      >
-        Return to Home
-      </button>
-      {/* <button
-              className="ml-4 w-full px-4 py-2 text-white bg-gray-500 hover:bg-gray-600 rounded-md"
-              onClick={() => router.push('/my-tickets')}
-            >
-              My Tickets
-            </button> */}
-      {/* <pre>{JSON.stringify(sessionData, null, 2)}</pre> */}
-    </div>
+      </Card>
+      {/* <div className="w-full max-w-4xl mx-auto py-12 md:py-16 lg:py-20 min-h-[84vh]">
+        <h1 className="text-3xl font-bold tracking-tight">
+          Payment Successful
+        </h1>
+        <p className="text-gray-500 dark:text-gray-400">
+          Thank you for your purchase. Your payment was successful!
+        </p>
+        <div className="mt-8">
+          <h2 className="text-xl font-bold">Order Summary</h2>
+          <div className="mt-4">
+            {sessionData && (
+              <>
+                {sessionData && (
+                  <>
+                    <p className="text-gray-500 dark:text-gray-400">
+                      Payment ID: {sessionData.id}
+                    </p>
+                    <p className="text-gray-500 dark:text-gray-400">
+                      Amount: {sessionData.amount_total / 100}{" "}
+                      {sessionData.currency.toUpperCase()}
+                    </p>
+                    <p className="text-gray-500 dark:text-gray-400">
+                      Payment Status: {sessionData.payment_status}
+                    </p>
+                  </>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+        <button
+          className="w-44 px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md"
+          onClick={() => router.push("/home")}
+        >
+          Return to Home
+        </button>
+      </div> */}
+    </>
   );
 };
 

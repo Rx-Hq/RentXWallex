@@ -23,6 +23,12 @@ const handleStripeInitiation = async (
   membershipDuration: any
 ) => {
   const stripe = await stripePromise;
+  if (
+    membershipType == "Gold Membership (Yearly)" ||
+    membershipType == "Platinum Membership (Yearly)"
+  ) {
+    membershipAmt = (membershipAmt * 90) / 100;
+  }
   const checkoutSession = await axios.post("/api/checkout-session", {
     quantity: 1,
     membershipAmt: Number(membershipAmt),
@@ -67,7 +73,7 @@ export const MembershipTypeCards = ({
         {membershipType}
       </h5>
       <p className="font-normal text-gray-700 dark:text-gray-400">
-        Price: ${membershipAmt} annually
+        Price: ${membershipAmt}/Month
       </p>
 
       <button
@@ -80,7 +86,7 @@ export const MembershipTypeCards = ({
         }
         className="bg-lime-100 p-3 mt-3 rounded-xl"
       >
-        Upgrade
+        Get Membership
       </button>
     </div>
   );
