@@ -1,7 +1,7 @@
-"use client";
-import { Input } from "@nextui-org/react";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+'use client';
+import { Input } from '@nextui-org/react';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 // import { payment } from '../../../../../actions/payment';
 // import { DotsIcon } from "@/components/icons/accounts/dots-icon";
 // import { ExportIcon } from "@/components/icons/accounts/export-icon";
@@ -12,42 +12,42 @@ import React, { useEffect, useState } from "react";
 // import { SettingsIcon } from "@/components/icons/sidebar/settings-icon";
 // import { TableWrapper } from "@/components/table/table";
 // import { AddUser } from "./add-user";
-import { HouseIcon } from "../icons/breadcrumb/house-icon";
-import { UsersIcon } from "../icons/breadcrumb/users-icon";
-import { TrashIcon } from "@radix-ui/react-icons";
-import { DotsIcon } from "../icons/accounts/dots-icon";
-import { ExportIcon } from "../icons/accounts/export-icon";
-import { InfoIcon } from "../icons/accounts/info-icon";
-import { SettingsIcon } from "../icons/sidebar/settings-icon";
-import { TableWrapper } from "../table/table";
-import Modal from "@/components/auth/modal";
-import { userInfo } from "../../../../../actions/userInfo";
-import { CardAgents } from "../home/card-agents";
-import { MembershipTypeCards } from "./membershipTypesCards";
+import { HouseIcon } from '../icons/breadcrumb/house-icon';
+import { UsersIcon } from '../icons/breadcrumb/users-icon';
+import { TrashIcon } from '@radix-ui/react-icons';
+import { DotsIcon } from '../icons/accounts/dots-icon';
+import { ExportIcon } from '../icons/accounts/export-icon';
+import { InfoIcon } from '../icons/accounts/info-icon';
+import { SettingsIcon } from '../icons/sidebar/settings-icon';
+import { TableWrapper } from '../table/table';
+import Modal from '@/components/auth/modal';
+import { userInfo } from '../../../../../actions/userInfo';
+import { CardAgents } from '../home/card-agents';
+import { MembershipTypeCards } from './membershipTypesCards';
 import {
   getMembership,
   getMembershipTypes,
-} from "../../../../../actions/membership";
+} from '../../../../../actions/membership';
 
-import { MembershipInfoType, MembershipsType, PropertyInfoType } from "@/types";
-import { motion } from "framer-motion";
-import { useSession } from "next-auth/react";
-import { Button } from "@/components/ui/button";
-import { landlordInfo } from "../../../../../actions/landlord";
+import { MembershipInfoType, MembershipsType, PropertyInfoType } from '@/types';
+import { motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
+import { Button } from '@/components/ui/button';
+import { landlordInfo } from '../../../../../actions/landlord';
 
 export const Membership = () => {
   const [modal, setModal] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [memberships, setMemberships] = useState<[MembershipsType]>();
   // Mock data for user, membership, payment, and plans
-  const user = { name: "John Doe", email: "john.doe@example.com" };
+  const user = { name: 'John Doe', email: 'john.doe@example.com' };
   const membership = {
-    type: "Elite",
-    startDate: "2023-01-01",
-    endDate: "2023-12-31",
-    paymentCycle: "Monthly",
+    type: 'Elite',
+    startDate: '2023-01-01',
+    endDate: '2023-12-31',
+    paymentCycle: 'Monthly',
   };
-  const payment = { card: "**** **** **** 3889", date: "2023-06-01" };
+  const payment = { card: '**** **** **** 3889', date: '2023-06-01' };
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -81,7 +81,10 @@ export const Membership = () => {
             Membership
           </h2>
 
-          <CardAgents custom={toggleModal} />
+          <div className="flex flex-col gap-4 w-full sm:w-3/4 md:w-1/2 lg:w-1/3 max-w-md">
+            <CardAgents custom={toggleModal} />
+          </div>
+
           {/* <a
           href="#"
           onClick={toggleModal}
@@ -101,15 +104,16 @@ export const Membership = () => {
             memInfo?.Membership_Info[0]?.membershipExpireDate! <
               new Date()) && (
             <>
-              <h2 className="mt-6">Select Membership Plan</h2>
-              <div className="grid grid-cols-3 gap-4">
+              <h2 className="mt-6 text-xl md:text-2xl lg:text-3xl">
+                Select Membership Plan
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {memberships?.map((mem) => (
-                  <>
-                    {Number(propertyInfo?.Property_Info[0].rentAmt!) > 1500 ? (
-                      (mem.membershipType == "Gold Membership" ||
-                        mem.membershipType == "Gold Membership (Yearly)") && (
+                  <React.Fragment key={mem.id}>
+                    {Number(propertyInfo?.Property_Info[0].rentAmt) > 1500 ? (
+                      (mem.membershipType === 'Gold Membership' ||
+                        mem.membershipType === 'Gold Membership (Yearly)') && (
                         <MembershipTypeCards
-                          key={mem.id}
                           id={mem.id}
                           membershipType={mem.membershipType}
                           membershipAmt={mem.membershipAmt}
@@ -119,7 +123,6 @@ export const Membership = () => {
                       )
                     ) : (
                       <MembershipTypeCards
-                        key={mem.id}
                         id={mem.id}
                         membershipType={mem.membershipType}
                         membershipAmt={mem.membershipAmt}
@@ -127,7 +130,7 @@ export const Membership = () => {
                         membershipAmenities={mem.membershipAmenities}
                       />
                     )}
-                  </>
+                  </React.Fragment>
                 ))}
 
                 {/* <a
@@ -230,19 +233,19 @@ export const Membership = () => {
                         Membership Details
                       </h2>
                       <p className="text-gray-700 dark:text-gray-300">
-                        Membership Type:{" "}
+                        Membership Type:{' '}
                         {memInfo?.Membership_Info[0].membershipType}
                       </p>
                       <p className="text-gray-700 dark:text-gray-300">
-                        Start Date:{" "}
+                        Start Date:{' '}
                         {memInfo?.Membership_Info[0].membershipStartDate.toString()}
                       </p>
                       <p className="text-gray-700 dark:text-gray-300">
-                        End Date:{" "}
+                        End Date:{' '}
                         {memInfo?.Membership_Info[0].membershipExpireDate.toString()}
                       </p>
                       <p className="text-gray-700 dark:text-gray-300">
-                        Payment Cycle:{" "}
+                        Payment Cycle:{' '}
                         {memInfo?.Membership_Info[0].membershipDuration} Months
                       </p>
                     </div>
