@@ -7,33 +7,51 @@ export const referal = async (referTo: string) => {
   const referCode = "REFER100";
   const id = session?.user.email!;
   const referAmt = "10";
-  const result = await db.user_Info.update({
+  const checkEmail = await db.user_Info.findUnique({
     where: {
-      email: id,
-    },
-    data: {
-      Referals: {
-        create: {
-          referToEmail: referTo,
-          referAmt: referAmt,
-          referCode: referCode,
-        },
-      },
+      email: referTo,
     },
   });
-  return "Referal successfully.";
+  if (checkEmail == null) {
+    const result = await db.user_Info.update({
+      where: {
+        email: id,
+      },
+      data: {
+        Referals: {
+          create: {
+            referToEmail: referTo,
+            referAmt: referAmt,
+            referCode: referCode,
+          },
+        },
+      },
+    });
+    return "Referral successfully.";
+  } else {
+    return "User Already Exists!";
+  }
 };
 
 export const getTotalReferrals = async () => {
   const session = await auth();
-  const result = db.user_Info.findUnique({
+  if (!session?.user?.email) {
+    throw new Error("User is not authenticated");
+  }
+
+  const result = await db.user_Info.findUnique({
     where: {
-      email: session?.user.email!,
+      email: session.user.email,
     },
     include: {
       Referals: true,
     },
   });
 
-  return result;
+  let totalAmt = 0;
+  result?.Referals.forEach((referral) => {
+    totalAmt += Number(referral.referAmt);
+  });
+
+  return totalAmt;
 };

@@ -27,39 +27,13 @@ export const TableWrapper = () => {
   console.log(data?.Payment_Info);
   return (
     <div className=" w-full flex flex-col gap-4">
-      {/* <Table
-        aria-label="Example table with custom cells"
-        className="border-separate border-spacing-2"
-      >
-        <TableHeader columns={columns} className="text-left rounded-xl">
-          {(column) => (
-            <TableColumn
-              className="bg-lime-100 text-green-500"
-              key={column.uid}
-            >
-              {column.name}
-            </TableColumn>
-          )}
-        </TableHeader>
-        <TableBody items={data?.Payment_Info}>
-          {(item: any) => (
-            <TableRow className="bg-lime-100 mb-4">
-              {(columnKey) => (
-                <TableCell className="gap-y-4">
-                  {RenderCell({ user: item, columnKey: columnKey })}
-                </TableCell>
-              )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table> */}
       <table className=" m-4 bg-white border-separate border-spacing-y-2">
         <thead className="text-left rounded-xl">
           <tr className="bg-lime-50 m-4 text-green-500 ">
             <th className="py-2 px-4 text-left">Date</th>
             <th className="py-2 px-4 text-left">Payment ID</th>
             <th className="py-2 px-4 text-left">Payment Type</th>
-            <th className="py-2 px-4  text-left">Rent Amount</th>
+            {/* <th className="py-2 px-4  text-left">Rent Amount</th> */}
             <th className="py-2 px-4  text-left">Payment Amount</th>
             <th className="py-2 px-4 text-left">Payment Status</th>
           </tr>
@@ -83,7 +57,7 @@ export const TableWrapper = () => {
               </td>
               <td className="py-2 px-4">{datas.paymentId}</td>
               <td className="py-2 px-4">{datas.paymentType}</td>
-              <td className="py-2 px-4">${datas.rentAmt}</td>
+              {/* <td className="py-2 px-4">${datas.rentAmt}</td> */}
               <td className="py-2 px-4">${datas.paymentAmt}</td>
               <td
                 className={clsx({

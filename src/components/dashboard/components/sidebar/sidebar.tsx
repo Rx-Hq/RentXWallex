@@ -102,80 +102,19 @@ export const SidebarWrapper = () => {
                     </>
                   )}
 
-                  {/* <SidebarItem
-                    isActive={pathname === "/application"}
-                    title="My Application"
-                    icon={<ViewIcon />}
-                    href="application"
-                  /> */}
-                  {/* <CollapseItems
-                    icon={<BalanceIcon />}
-                    items={["Transactions", "Payment Methods"]}
-                    title="Payment"
-                  /> */}
                   <SidebarItem
                     isActive={pathname === "/customers"}
                     title="Credit History"
                     icon={<CustomersIcon />}
                   />
                   <SidebarItem
-                    isActive={pathname === "/products"}
+                    isActive={pathname === "/referAndEarn"}
                     title="Refer & Earn"
                     icon={<ProductsIcon />}
-                    href={"/products"}
+                    href={"/referAndEarn"}
                   />
-                  {/* <SidebarItem
-                isActive={pathname === "/reports"}
-                title="Settings"
-                icon={<SettingsIcon />}
-              /> */}
-                  {/* <SidebarItem
-                    isActive={pathname === "/settings"}
-                    title="Settings"
-                    icon={<SettingsIcon />}
-                    href={buttonDisable ? "application" : "/settings"}
-                  /> */}
                 </SidebarMenu>
-
-                {/* <SidebarMenu title="General">
-              <SidebarItem
-                isActive={pathname === "/developers"}
-                title="Developers"
-                icon={<DevIcon />}
-              />
-              <SidebarItem
-                isActive={pathname === "/view"}
-                title="View Test Data"
-                icon={<ViewIcon />}
-              />
-            </SidebarMenu> */}
-
-                {/* <SidebarMenu title="Updates">
-              <SidebarItem
-                isActive={pathname === "/changelog"}
-                title="Changelog"
-                icon={<ChangeLogIcon />}
-              />
-            </SidebarMenu> */}
               </div>
-              {/* <div className={Sidebar.Footer()}>
-            <Tooltip content={"Settings"} color="primary">
-              <div className="max-w-fit">
-                <SettingsIcon />
-              </div>
-            </Tooltip>
-            <Tooltip content={"Adjustments"} color="primary">
-              <div className="max-w-fit">
-                <FilterIcon />
-              </div>
-            </Tooltip>
-            <Tooltip content={"Profile"} color="primary">
-              <Avatar
-                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                size="sm"
-              />
-            </Tooltip>
-          </div> */}
             </div>
           </div>
         </aside>
