@@ -9,6 +9,8 @@ import { insertMembershipdetails } from "../../../../../actions/membership";
 import { updateMonthlyRecord } from "../../../../../actions/monthly-records";
 import { CardHeader, CardBody, Card } from "@nextui-org/react";
 import { Button } from "@/components/ui/button";
+import { SidebarContext } from "../layout/layout-context";
+import { SidebarWrapper } from "../sidebar/sidebar";
 type SessionData = {
   id: string;
   amount: number;
@@ -79,6 +81,7 @@ const Success = () => {
               response.data.session.metadata.membershipAmt,
               response.data.session.metadata.membershipDuration
             );
+            router.refresh();
           }
 
           // await savePaymentInfo(response.data.session);

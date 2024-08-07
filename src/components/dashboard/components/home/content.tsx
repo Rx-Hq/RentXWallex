@@ -1,28 +1,32 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
-import { TableWrapper } from '../table/table';
-import { CardBalance1 } from './card-balance1';
-import { CardBalance2 } from './card-balance2';
-import { CardBalance3 } from './card-balance3';
-import { CardAgents } from './card-agents';
-import { CardTransactions } from './card-transactions';
-import { Link } from '@nextui-org/react';
-import NextLink from 'next/link';
-import Modal from '@/components/auth/modal';
-import { applicationCheck } from '../../../../../actions/Application';
+"use client";
+import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { TableWrapper } from "../table/table";
+import { CardBalance1 } from "./card-balance1";
+import { CardBalance2 } from "./card-balance2";
+import { CardBalance3 } from "./card-balance3";
+import { CardAgents } from "./card-agents";
+import { CardTransactions } from "./card-transactions";
+import { Card, CardBody, Link } from "@nextui-org/react";
+import NextLink from "next/link";
+import Modal from "@/components/auth/modal";
+import { applicationCheck } from "../../../../../actions/Application";
 import {
   MembershipInfoType,
   MonthlyRecordInfoType,
   PropertyInfoType,
-} from '@/types';
-import { landlordInfo } from '../../../../../actions/landlord';
-import { QuestionCard } from './question-card';
-import { getNextMonthlyRecord } from '../../../../../actions/monthly-records';
-import { monthNames } from '@/data/monthNames';
-import { getMembership } from '../../../../../actions/membership';
+} from "@/types";
+import { landlordInfo } from "../../../../../actions/landlord";
+import { QuestionCard } from "./question-card";
+import { getNextMonthlyRecord } from "../../../../../actions/monthly-records";
+import { monthNames } from "@/data/monthNames";
+import { getMembership } from "../../../../../actions/membership";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export const Content = () => {
+  const router = useRouter();
+
   const [buttonDisable, setButtonDisable] = useState(true);
   useEffect(() => {
     applicationCheck().then((data: any) => {
@@ -39,7 +43,7 @@ export const Content = () => {
     });
   }, []);
   const Chart = dynamic(
-    () => import('../charts/steam').then((mod) => mod.Steam),
+    () => import("../charts/steam").then((mod) => mod.Steam),
     {
       ssr: false,
     }
@@ -91,7 +95,7 @@ export const Content = () => {
       // setThisMonthlyRecordInfo(data);
     });
   }, []);
-  console.log('monthky length', monthlyRecordInfo?.Monthly_Rent_Record.length);
+  console.log("monthky length", monthlyRecordInfo?.Monthly_Rent_Record.length);
   return (
     <>
       {!buttonDisable && (
@@ -121,6 +125,29 @@ export const Content = () => {
                       />
                     </div>
                   )}
+                {(membershipInfo?.Membership_Info.length! <= 0 ||
+                  membershipInfo?.Membership_Info[0]?.membershipExpireDate! <
+                    new Date()) && (
+                  <Card className=" bg-green-100 rounded-xl shadow-md px-3 w-full">
+                    <CardBody className="py-5">
+                      <div className="flex gap-2.5">
+                        <div className="flex flex-col mb-5">
+                          {/* <span className="text-white">Auto Insurance</span> */}
+                          <span className="text-center text-black text-lg">
+                            Let's get started!
+                          </span>
+                        </div>
+                      </div>{" "}
+                      <Button
+                        onClick={() => router.push("/membership")}
+                        variant="default"
+                        size="lg"
+                      >
+                        Set up membership
+                      </Button>
+                    </CardBody>
+                  </Card>
+                )}
               </div>
 
               {/* Chart */}
