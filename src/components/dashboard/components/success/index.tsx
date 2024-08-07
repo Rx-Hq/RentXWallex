@@ -52,6 +52,8 @@ const Success = () => {
           setSessionData(response.data.session);
           if (response.data.session.metadata.type == "Rent") {
             SavePaymentInfo(
+              response.data.session.id,
+              response.data.session.metadata.type,
               response.data.session.metadata.rentAmt,
               response.data.session.metadata.paymentAmt,
               response.data.session.payment_status
@@ -65,6 +67,13 @@ const Success = () => {
               ).then((data) => {});
             }
           } else {
+            SavePaymentInfo(
+              response.data.session.id,
+              response.data.session.metadata.type,
+              0,
+              response.data.session.metadata.membershipAmt,
+              response.data.session.payment_status
+            );
             insertMembershipdetails(
               response.data.session.metadata.membershipName,
               response.data.session.metadata.membershipAmt,
@@ -86,29 +95,6 @@ const Success = () => {
     }
   }, [sessionId]);
 
-  // const savePaymentInfo = async (sessionData: SessionData) => {
-  //   try {
-  //     await axios.post("/api/save-transaction", {
-  //       sessionId: sessionData.id,
-  //       created: new Date(sessionData.created * 1000).toLocaleString(),
-  //       currency: sessionData.currency,
-  //       amount_total: sessionData.amount_total,
-  //       customer_details: sessionData.customer_details,
-  //       customer_email: sessionData.receipt_email,
-  //       expires_at: new Date(sessionData.expires_at * 1000).toLocaleString(), // Convert Unix timestamp to human-readable date
-  //       // metadata: sessionData.metadata,
-  //       mode: sessionData.mode,
-  //       payment_intent: sessionData.payment_intent,
-  //       payment_method_options: sessionData.payment_method_options,
-  //       payment_method_types: sessionData.payment_method_types,
-  //       payment_status: sessionData.payment_status,
-  //       status: sessionData.status,
-  //     });
-  //     console.log("Transaction saved successfully");
-  //   } catch (error) {
-  //     console.error("Error saving transaction:", error);
-  //   }
-  // };
   const onClick = () => {
     router.replace("/home");
   };

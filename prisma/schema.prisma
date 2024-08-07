@@ -135,6 +135,8 @@ model Payment_Info {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
   userId       String
   user         User_Info @relation(fields: [userId], references: [id], onDelete: Cascade)
+  paymentId    String
+  paymentType  String
   rentAmt      String
   paymentAmt   String
   payemntDate  DateTime?

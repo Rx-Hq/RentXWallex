@@ -57,6 +57,8 @@ export const TableWrapper = () => {
         <thead className="text-left rounded-xl">
           <tr className="bg-lime-50 m-4 text-green-500 ">
             <th className="py-2 px-4 text-left">Date</th>
+            <th className="py-2 px-4 text-left">Payment ID</th>
+            <th className="py-2 px-4 text-left">Payment Type</th>
             <th className="py-2 px-4  text-left">Rent Amount</th>
             <th className="py-2 px-4  text-left">Payment Amount</th>
             <th className="py-2 px-4 text-left">Payment Status</th>
@@ -79,6 +81,8 @@ export const TableWrapper = () => {
                   "-" +
                   datas.payemntDate.getFullYear()}{" "}
               </td>
+              <td className="py-2 px-4">{datas.paymentId}</td>
+              <td className="py-2 px-4">{datas.paymentType}</td>
               <td className="py-2 px-4">${datas.rentAmt}</td>
               <td className="py-2 px-4">${datas.paymentAmt}</td>
               <td

@@ -109,6 +109,8 @@ export type PaymentInfoType = {
   Payment_Info: [
     {
       id: string;
+      paymentId: string;
+      paymentType: string;
       rentAmt: string;
       paymentAmt: string;
       remainingAmt: string;

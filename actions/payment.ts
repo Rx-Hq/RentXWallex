@@ -18,6 +18,8 @@ export const PaymentInfo = async () => {
 };
 
 export const SavePaymentInfo = async (
+  id: string,
+  type: string,
   rentAmt: number,
   paymentAmt: number,
   status: string
@@ -25,7 +27,7 @@ export const SavePaymentInfo = async (
   const session = await auth();
 
   const date = new Date().toISOString();
-  console.log(status);
+  console.log(rentAmt);
   const result = db.user_Info.update({
     where: {
       email: session?.user.email!,
@@ -33,6 +35,8 @@ export const SavePaymentInfo = async (
     data: {
       Payment_Info: {
         create: {
+          paymentId: id,
+          paymentType: type,
           rentAmt: rentAmt.toString(),
           paymentAmt: paymentAmt.toString(),
           payemntDate: date,
