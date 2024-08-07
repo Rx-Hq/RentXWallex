@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
             currency: "cad",
             product_data: {
               name: membershipName, // Replace with your product name
-              description: "Discount: 10%" + "\n" + "dakjhwdkjha",
+              description: "This amount is inclusive of all taxes.",
             },
             unit_amount: membershipAmt * quantity * 100, // Ensure quantity is a positive integer
           },

@@ -25,6 +25,7 @@ export async function POST(request: NextRequest) {
             currency: "cad",
             product_data: {
               name: "Rent Installment", // Replace with your product name
+              description: "This amount is inclusive of all taxes.",
             },
             unit_amount: paymentAmt * quantity * 100, // Ensure quantity is a positive integer
           },
