@@ -48,9 +48,12 @@ export const Content = () => {
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-
-  let monthIndex = new Date().getMonth() + 1;
-  let monthName = monthNames[monthIndex];
+  const [monthName, setMonthName] = useState("");
+  const [paymentDateIndex, setPaymentDateIndex] = useState(0);
+  let nextMonth = new Date().getMonth() + 1;
+  let thisMonth = new Date().getMonth();
+  let nextMonthName = monthNames[nextMonth];
+  let thisMonthName = monthNames[thisMonth];
   let year = new Date().getFullYear();
   const [propertyInfo, setPropertyInfo] = useState<PropertyInfoType>();
   const [membershipInfo, setmembershipInfo] = useState<MembershipInfoType>();
@@ -65,8 +68,27 @@ export const Content = () => {
       console.log(data);
       setmembershipInfo(data);
     });
-    getNextMonthlyRecord(monthName, year).then((data: any) => {
-      setMonthlyRecordInfo(data);
+    getNextMonthlyRecord(thisMonthName, year).then((data: any) => {
+      if (data?.Monthly_Rent_Record.length == 1) {
+        if (data?.Monthly_Rent_Record[0].remainingRent == "0") {
+          getNextMonthlyRecord(nextMonthName, year).then((data: any) => {
+            setMonthlyRecordInfo(data);
+            setMonthName(nextMonthName);
+            setPaymentDateIndex(0);
+            setPaymentDateIndex(1);
+          });
+        } else {
+          setMonthlyRecordInfo(data);
+          setMonthName(thisMonthName);
+        }
+      } else {
+        getNextMonthlyRecord(nextMonthName, year).then((data: any) => {
+          setMonthlyRecordInfo(data);
+          setMonthName(nextMonthName);
+          setPaymentDateIndex(1);
+        });
+      }
+      // setThisMonthlyRecordInfo(data);
     });
   }, []);
   console.log("monthky length", monthlyRecordInfo?.Monthly_Rent_Record.length);

@@ -27,7 +27,7 @@ import { FormDataSchema } from "../../../../../schemas";
 import { ReferralInfoType } from "@/types";
 // import '../../../../../style.css'
 
-export const Products = () => {
+export const ReferAndEarn = () => {
   const [modal, setModal] = useState(true);
   const [email, setEmail] = useState("");
   const [referralCode, setReferralCode] = useState("");

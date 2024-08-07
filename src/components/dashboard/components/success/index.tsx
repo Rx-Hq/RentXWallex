@@ -109,6 +109,9 @@ const Success = () => {
   //     console.error("Error saving transaction:", error);
   //   }
   // };
+  const onClick = () => {
+    router.replace("/home");
+  };
 
   return (
     <>
@@ -155,10 +158,7 @@ const Success = () => {
                     )}
                   </div>
                 </div>
-                <Button
-                  variant={"default"}
-                  onClick={() => router.push("/home")}
-                >
+                <Button variant={"default"} onClick={onClick}>
                   OK
                 </Button>
               </CardBody>
