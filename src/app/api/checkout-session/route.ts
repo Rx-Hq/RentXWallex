@@ -20,13 +20,14 @@ export async function POST(request: NextRequest) {
     const params: Stripe.Checkout.SessionCreateParams = {
       payment_method_types: ["card"],
       customer_email: session.user.email!,
-      
+
       line_items: [
         {
           price_data: {
             currency: "cad",
             product_data: {
               name: membershipName, // Replace with your product name
+              description: "Discount: 10%" + "\n" + "dakjhwdkjha",
             },
             unit_amount: membershipAmt * quantity * 100, // Ensure quantity is a positive integer
           },
