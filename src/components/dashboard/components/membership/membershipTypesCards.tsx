@@ -1,6 +1,6 @@
 import { MembershipsType } from "@/types";
 import { Avatar, AvatarGroup, Card, CardBody } from "@nextui-org/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { insertMembershipdetails } from "../../../../../actions/membership";
 import { auth } from "../../../../../auth";
 import { useSession } from "next-auth/react";
@@ -23,11 +23,8 @@ const handleStripeInitiation = async (
   membershipDuration: any
 ) => {
   const stripe = await stripePromise;
-  if (
-    membershipType == "Gold Membership (Yearly)" ||
-    membershipType == "Platinum Membership (Yearly)"
-  ) {
-    membershipAmt = (membershipAmt * 90) / 100;
+  if (membershipDuration == "12") {
+    membershipAmt = ((membershipAmt * 90) / 100) * 12;
   }
   const checkoutSession = await axios.post("/api/checkout-session", {
     quantity: 1,
@@ -51,30 +48,38 @@ export const MembershipTypeCards = ({
   membershipDuration,
   membershipAmenities,
 }: MembershipsType) => {
-  const session = useSession();
-  const userId = session?.data?.user.email!;
-  const handleBuy = () => {
-    // insertMembershipdetails(
-    //   userId,
-    //   membershipType,
-    //   membershipAmt,
-    //   membershipDuration,
-    //   membershipAmenities
-    // ).then((result) => {
-    //   if (confirm("Do you want to upgrade the membership?") == true) {
-    //     alert(result);
-    //   } else {
-    //   }
-    // });
-  };
+  const [finalAmount, setFinalAmount] = useState("");
+  const [yearlyAmt, setYearlyAmt] = useState(0);
+  useEffect(() => {
+    if (membershipDuration == "12") {
+      setYearlyAmt(Number(membershipAmt) * 12);
+      setFinalAmount(((yearlyAmt * 90) / 100).toString());
+    } else {
+      setFinalAmount(membershipAmt);
+    }
+  }, [membershipDuration, yearlyAmt]);
+
   return (
     <div className="block max-w-sm p-6 my-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
       <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         {membershipType}
       </h5>
-      <p className="font-normal text-gray-700 dark:text-gray-400">
-        Price: ${membershipAmt}/Month
-      </p>
+      {membershipDuration === "1" ? (
+        <p className="font-normal text-gray-700 dark:text-gray-400">
+          Price: ${finalAmount}/Month
+        </p>
+      ) : (
+        <>
+          <p className="font-normal text-gray-700 dark:text-gray-400">
+            10% Discount
+          </p>
+          <p className="font-normal text-gray-700 dark:text-gray-400">
+            Price: <span className="line-through m-2">${yearlyAmt}</span> $
+            {finalAmount}
+            /Year
+          </p>
+        </>
+      )}
 
       <button
         onClick={() =>

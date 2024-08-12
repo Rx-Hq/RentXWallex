@@ -115,6 +115,7 @@ export type PaymentInfoType = {
       paymentAmt: string;
       remainingAmt: string;
       payemntDate: Date;
+      transactionType: string;
       status: string;
     }
   ];

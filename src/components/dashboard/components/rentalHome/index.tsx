@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { landlordInfo } from '../../../../../actions/landlord';
-import { PropertyInfoType } from '@/types';
-import { useSession } from 'next-auth/react';
+import { landlordInfo } from "../../../../../actions/landlord";
+import { PropertyInfoType } from "@/types";
+import { useSession } from "next-auth/react";
 
 export const RentalHome = () => {
   const session = useSession();
@@ -21,7 +21,7 @@ export const RentalHome = () => {
     <div className="container mx-auto px-4">
       <div className="my-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
         <h2 className="text-3xl font-semibold text-gray-900 dark:text-gray-300 mt-6">
-          Rental Home
+          My Apartment
         </h2>
 
         <div className="max-w-[95rem] mx-auto w-full bg-green-100 shadow-xl dark:bg-gray-800 rounded-lg">

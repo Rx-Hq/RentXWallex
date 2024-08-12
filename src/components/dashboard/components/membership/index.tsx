@@ -1,7 +1,7 @@
-'use client';
-import { Input } from '@nextui-org/react';
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+"use client";
+import { Input } from "@nextui-org/react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 // import { payment } from '../../../../../actions/payment';
 // import { DotsIcon } from "@/components/icons/accounts/dots-icon";
 // import { ExportIcon } from "@/components/icons/accounts/export-icon";
@@ -12,42 +12,42 @@ import React, { useEffect, useState } from 'react';
 // import { SettingsIcon } from "@/components/icons/sidebar/settings-icon";
 // import { TableWrapper } from "@/components/table/table";
 // import { AddUser } from "./add-user";
-import { HouseIcon } from '../icons/breadcrumb/house-icon';
-import { UsersIcon } from '../icons/breadcrumb/users-icon';
-import { TrashIcon } from '@radix-ui/react-icons';
-import { DotsIcon } from '../icons/accounts/dots-icon';
-import { ExportIcon } from '../icons/accounts/export-icon';
-import { InfoIcon } from '../icons/accounts/info-icon';
-import { SettingsIcon } from '../icons/sidebar/settings-icon';
-import { TableWrapper } from '../table/table';
-import Modal from '@/components/auth/modal';
-import { userInfo } from '../../../../../actions/userInfo';
-import { CardAgents } from '../home/card-agents';
-import { MembershipTypeCards } from './membershipTypesCards';
+import { HouseIcon } from "../icons/breadcrumb/house-icon";
+import { UsersIcon } from "../icons/breadcrumb/users-icon";
+import { TrashIcon } from "@radix-ui/react-icons";
+import { DotsIcon } from "../icons/accounts/dots-icon";
+import { ExportIcon } from "../icons/accounts/export-icon";
+import { InfoIcon } from "../icons/accounts/info-icon";
+import { SettingsIcon } from "../icons/sidebar/settings-icon";
+import { TableWrapper } from "../table/table";
+import Modal from "@/components/auth/modal";
+import { userInfo } from "../../../../../actions/userInfo";
+import { CardAgents } from "../home/card-agents";
+import { MembershipTypeCards } from "./membershipTypesCards";
 import {
   getMembership,
   getMembershipTypes,
-} from '../../../../../actions/membership';
+} from "../../../../../actions/membership";
 
-import { MembershipInfoType, MembershipsType, PropertyInfoType } from '@/types';
-import { motion } from 'framer-motion';
-import { useSession } from 'next-auth/react';
-import { Button } from '@/components/ui/button';
-import { landlordInfo } from '../../../../../actions/landlord';
+import { MembershipInfoType, MembershipsType, PropertyInfoType } from "@/types";
+import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import { landlordInfo } from "../../../../../actions/landlord";
 
 export const Membership = () => {
-  const [modal, setModal] = useState(true);
+  const [membershipDuration, setMembershipDuration] = useState("1");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [memberships, setMemberships] = useState<[MembershipsType]>();
   // Mock data for user, membership, payment, and plans
-  const user = { name: 'John Doe', email: 'john.doe@example.com' };
+  const user = { name: "John Doe", email: "john.doe@example.com" };
   const membership = {
-    type: 'Elite',
-    startDate: '2023-01-01',
-    endDate: '2023-12-31',
-    paymentCycle: 'Monthly',
+    type: "Elite",
+    startDate: "2023-01-01",
+    endDate: "2023-12-31",
+    paymentCycle: "Monthly",
   };
-  const payment = { card: '**** **** **** 3889', date: '2023-06-01' };
+  const payment = { card: "**** **** **** 3889", date: "2023-06-01" };
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -69,10 +69,10 @@ export const Membership = () => {
     });
   }, []);
 
-  // useEffect(()=>{
-  //   <Modal onClose={()=>setModal(false)}/>
-  // },[])
-  console.log(memInfo?.Membership_Info);
+  const handleMembershipDuration = (e: any) => {
+    setMembershipDuration(e);
+  };
+
   return (
     <>
       <div className="container">
@@ -85,39 +85,37 @@ export const Membership = () => {
             <CardAgents custom={toggleModal} />
           </div>
 
-          {/* <a
-          href="#"
-          onClick={toggleModal}
-          className="block max-w-sm p-6 m-6 bg-gradient-to-r from-green-500 to-lime-300 border border-gray-200 rounded-lg shadow dark:border-gray-700 dark:hover:bg-gray-700"
-        >
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Zoey
-          </h5>
-          <h5 className="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-            **** **** **** 3889
-          </h5>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
-            Elite Membership
-          </p>
-        </a> */}
-          {(memInfo?.Membership_Info.length! <= 0 ||
+          {((membershipDuration && memInfo?.Membership_Info.length! <= 0) ||
             memInfo?.Membership_Info[0]?.membershipExpireDate! <
               new Date()) && (
             <>
               <h2 className="mt-6 text-xl md:text-2xl lg:text-3xl">
                 Select Membership Plan
               </h2>
+              <div className="text-right">
+                <button
+                  className="bg-transparent hover:bg-lime-100 text-green-700 font-semibold py-2 px-4 border border-green-500  rounded"
+                  onClick={() => handleMembershipDuration("1")}
+                >
+                  Monthly
+                </button>{" "}
+                <button
+                  className="bg-transparent hover:bg-lime-100 text-green-700 font-semibold  py-2 px-4 border border-green-500  rounded"
+                  onClick={() => handleMembershipDuration("12")}
+                >
+                  Yearly
+                </button>
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {memberships?.map((mem) => (
                   <React.Fragment key={mem.id}>
                     {Number(propertyInfo?.Property_Info[0].rentAmt) > 1500 ? (
-                      (mem.membershipType === 'Gold Membership' ||
-                        mem.membershipType === 'Gold Membership (Yearly)') && (
+                      mem.membershipType === "Gold Membership" && (
                         <MembershipTypeCards
                           id={mem.id}
                           membershipType={mem.membershipType}
                           membershipAmt={mem.membershipAmt}
-                          membershipDuration={mem.membershipDuration}
+                          membershipDuration={membershipDuration}
                           membershipAmenities={mem.membershipAmenities}
                         />
                       )
@@ -126,47 +124,12 @@ export const Membership = () => {
                         id={mem.id}
                         membershipType={mem.membershipType}
                         membershipAmt={mem.membershipAmt}
-                        membershipDuration={mem.membershipDuration}
+                        membershipDuration={membershipDuration}
                         membershipAmenities={mem.membershipAmenities}
                       />
                     )}
                   </React.Fragment>
                 ))}
-
-                {/* <a
-            href="#"
-            className="block max-w-sm p-6 m-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-          >
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              One-Time Payment
-            </h5>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
-              Charge users a one-time payment fee to access the content.
-            </p>
-          </a> */}
-                {/* <a
-            href="#"
-            className="block max-w-sm p-6 m-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-          >
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Membership
-            </h5>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
-              Split the full bundle price over several monthly payments.
-            </p>
-          </a>
-          <a
-            href="#"
-            className="block max-w-sm p-6 m-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-          >
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Noteworthy technology acquisitions 2021
-            </h5>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
-            </p>
-          </a> */}
               </div>
             </>
           )}
@@ -233,58 +196,22 @@ export const Membership = () => {
                         Membership Details
                       </h2>
                       <p className="text-gray-700 dark:text-gray-300">
-                        Membership Type:{' '}
+                        Membership Type:{" "}
                         {memInfo?.Membership_Info[0].membershipType}
                       </p>
                       <p className="text-gray-700 dark:text-gray-300">
-                        Start Date:{' '}
+                        Start Date:{" "}
                         {memInfo?.Membership_Info[0].membershipStartDate.toString()}
                       </p>
                       <p className="text-gray-700 dark:text-gray-300">
-                        End Date:{' '}
+                        End Date:{" "}
                         {memInfo?.Membership_Info[0].membershipExpireDate.toString()}
                       </p>
                       <p className="text-gray-700 dark:text-gray-300">
-                        Payment Cycle:{' '}
+                        Payment Cycle:{" "}
                         {memInfo?.Membership_Info[0].membershipDuration} Months
                       </p>
                     </div>
-
-                    {/* Payment Info */}
-                    {/* <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-                      <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                        Payments
-                      </h2>
-                      <p className="text-gray-700 dark:text-gray-300">
-                        Last Payment Card: {payment.card}
-                      </p>
-                      <p className="text-gray-700 dark:text-gray-300">
-                        Last Payment Date: {payment.date}
-                      </p>
-                    </div> */}
-
-                    {/* Plan Upgrade */}
-                    {/* <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-                      <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                        Upgrade Plan
-                      </h2>
-                      <ul>
-                        {memberships!.map((plan) => (
-                          <li
-                            key={plan.id}
-                            className="text-gray-700 dark:text-gray-300"
-                          >
-                            {plan.membershipType} - ${plan.membershipAmt}
-                            <button
-                              className="ml-4 px-2 py-1 bg-blue-500 text-white rounded"
-                              //onClick={() => handleUpgrade(plan.id)}
-                            >
-                              Upgrade
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    </div> */}
                   </div>
                 </div>
               </div>

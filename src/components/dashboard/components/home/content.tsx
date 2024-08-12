@@ -167,8 +167,22 @@ export const Content = () => {
               </div>
             </div>
           </div>
-          <h3 className="text-xl font-semibold p-5">Recent Rent Payments</h3>
-          <TableWrapper />
+          <div className="bg-default-50 border-solid border-4 border-lime-200 rounded-xl shadow-md px-3">
+            {" "}
+            <h3 className="text-xl font-semibold p-5">Recent Rent Payments</h3>
+            <TableWrapper display="Dashboard" />
+            <div className="text-center my-3">
+              <Button variant={"default"}>
+                <Link
+                  href="/transactions"
+                  color="primary"
+                  className="cursor-pointer text-white"
+                >
+                  View More
+                </Link>
+              </Button>
+            </div>
+          </div>
         </div>
       )}
     </>

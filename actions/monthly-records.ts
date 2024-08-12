@@ -1,6 +1,7 @@
 "use server";
 import { db } from "@/lib/db";
 import { auth } from "../auth";
+import { SavePaymentInfo } from "./payment";
 
 export const insertMonthlyRecord = async (
   month: any,
@@ -11,7 +12,7 @@ export const insertMonthlyRecord = async (
 ) => {
   const session = await auth();
   const id = session?.user.email!;
-  const result = await db.user_Info.update({
+  await db.user_Info.update({
     where: {
       email: id,
     },
@@ -28,6 +29,14 @@ export const insertMonthlyRecord = async (
       },
     },
   });
+  await SavePaymentInfo(
+    id + new Date().toString(),
+    "Borrowings",
+    totalRent,
+    0,
+    "Credit",
+    "paid"
+  );
   return "Monthly record inserted successfully.";
 };
 

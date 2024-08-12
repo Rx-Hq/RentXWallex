@@ -11,7 +11,11 @@ export const PaymentInfo = async () => {
       email: session?.user.email!,
     },
     include: {
-      Payment_Info: true,
+      Payment_Info: {
+        orderBy: {
+          payemntDate: "desc",
+        },
+      },
     },
   });
   return result;
@@ -22,6 +26,7 @@ export const SavePaymentInfo = async (
   type: string,
   rentAmt: number,
   paymentAmt: number,
+  transactionType: string,
   status: string
 ) => {
   const session = await auth();
@@ -40,6 +45,7 @@ export const SavePaymentInfo = async (
           rentAmt: rentAmt.toString(),
           paymentAmt: paymentAmt.toString(),
           payemntDate: date,
+          transactionType: transactionType,
           status: status,
         },
       },

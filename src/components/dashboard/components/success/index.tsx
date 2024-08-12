@@ -1,5 +1,5 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { SessionProvider, useSession } from "next-auth/react";
@@ -11,6 +11,7 @@ import { CardHeader, CardBody, Card } from "@nextui-org/react";
 import { Button } from "@/components/ui/button";
 import { SidebarContext } from "../layout/layout-context";
 import { SidebarWrapper } from "../sidebar/sidebar";
+import { useRouter } from "next/navigation";
 type SessionData = {
   id: string;
   amount: number;
@@ -58,6 +59,7 @@ const Success = () => {
               response.data.session.metadata.type,
               response.data.session.metadata.rentAmt,
               response.data.session.metadata.paymentAmt,
+              "Debit",
               response.data.session.payment_status
             );
             if (response.data.session.payment_status == "paid") {
@@ -74,6 +76,7 @@ const Success = () => {
               response.data.session.metadata.type,
               0,
               response.data.session.metadata.membershipAmt,
+              "Debit",
               response.data.session.payment_status
             );
             insertMembershipdetails(
@@ -81,7 +84,6 @@ const Success = () => {
               response.data.session.metadata.membershipAmt,
               response.data.session.metadata.membershipDuration
             );
-            router.refresh();
           }
 
           // await savePaymentInfo(response.data.session);
@@ -99,7 +101,8 @@ const Success = () => {
   }, [sessionId]);
 
   const onClick = () => {
-    router.replace("/home");
+    // router.push("/home");
+    location.replace("/home");
   };
 
   return (

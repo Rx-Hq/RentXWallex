@@ -44,9 +44,9 @@ export const Transaction = () => {
         <div className="container">
           <div className="my-4 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
             <h2 className="text-3xl font-semibold text-gray-900 dark:text-gray-300 mt-6">
-              Recent Rent Payments
+              Transactions
             </h2>
-            <TableWrapper />
+            <TableWrapper display="Transactions" />
           </div>
         </div>
       </>

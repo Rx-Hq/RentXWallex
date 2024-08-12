@@ -140,6 +140,7 @@ model Payment_Info {
   rentAmt      String
   paymentAmt   String
   payemntDate  DateTime?
+  transactionType String
   status       String
 }
 
