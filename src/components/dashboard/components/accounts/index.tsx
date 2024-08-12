@@ -22,40 +22,37 @@ import { TableWrapper } from "../table/table";
 import Modal from "@/components/auth/modal";
 
 export const Accounts = () => {
-  const [modal,setModal] = useState(true);
+  const [modal, setModal] = useState(true);
   // useEffect(()=>{
   //   <Modal onClose={()=>setModal(false)}/>
   // },[])
   return (
-    <><div className="my-14 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
-
-      <h3 className="text-xl font-semibold">All Transactions</h3>
-      <div className="flex justify-between flex-wrap gap-4 items-center">
-        <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
-          <Input
-            classNames={{
-              input: "w-full",
-              mainWrapper: "w-full",
-            }}
-            placeholder="Search" />
-          <SettingsIcon />
-          <TrashIcon />
-          <InfoIcon />
-          <DotsIcon />
-        </div>
-        {/* <div className="flex flex-row gap-3.5 flex-wrap">
+    <>
+      <div className="my-14 lg:px-6 max-w-[95rem] mx-auto w-full flex flex-col gap-4">
+        <h3 className="text-xl font-semibold">All Transactions</h3>
+        <div className="flex justify-between flex-wrap gap-4 items-center">
+          <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
+            <Input
+              classNames={{
+                input: "w-full",
+                mainWrapper: "w-full",
+              }}
+              placeholder="Search"
+            />
+            <SettingsIcon />
+            <TrashIcon />
+            <InfoIcon />
+            <DotsIcon />
+          </div>
+          {/* <div className="flex flex-row gap-3.5 flex-wrap">
           <AddUser />
           <Button color="primary" startContent={<ExportIcon />}>
             Export to CSV
           </Button>
         </div> */}
+        </div>
       </div>
-      <div className="max-w-[95rem] mx-auto w-full">
-        <TableWrapper />
-      </div>
-    </div>
-    {console.log(modal)}
-    
+      {console.log(modal)}
     </>
   );
 };
