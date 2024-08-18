@@ -146,10 +146,10 @@ Yemi Ifegbuyi - yemi@cozii.co
 <!-- CONTACT -->
 ## Collaborators
 
-- Gaurav Hariyani 
-- Vivek Jethva
-- Smit Shah
-- Rahul Jayswal
+- Gaurav Hariyani ([GIT](https://github.com/RagnarGV), [GMAIL](mailto:gauravhariyani12.gh@gmail.com))
+- Vivek Jethva ([GIT](https://github.com/vivekhjtv), [GMAIL](mailto:vivekhjtv18@gmail.com ))
+- Smit Shah ([GIT](https://github.com/SmitShah2001), [GMAIL](mailto:smitdshah1901@gmail.com ))
+- Rahul Jayswal ([GIT](https://github.com/Rahul21j), [GMAIL](mailto:rahul1353rkj@gmail.com))
 
 
 
